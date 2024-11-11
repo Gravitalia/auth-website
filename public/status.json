@@ -1,0 +1,16 @@
+{
+    "name": "Example of status",
+    "url": "https://auth.gravitalia.com/",
+    "favicon": "https://www.gravitalia.com/favicon.webp",
+    "terms_of_service": "https://account.gravitalia.com/terms",
+    "privacy_policy": "https://account.gravitalia.com/privacy",
+
+    "version": 1,
+    "invite_only": true,
+
+    "colors": {
+        "background": "#0891b2",
+        "primary": "#059669",
+        "second": "#a3e635"
+    }
+}
