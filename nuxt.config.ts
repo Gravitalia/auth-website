@@ -7,7 +7,6 @@ export default defineNuxtConfig({
 
   modules: [
     "@nuxt/eslint",
-    "@unocss/nuxt",
     "@nuxtjs/i18n",
     [
       "@nuxtjs/color-mode",
@@ -17,8 +16,9 @@ export default defineNuxtConfig({
         classSuffix: "",
       },
     ],
-    ...isDevelopment ? [] : ["nuxt-security"],
     "@nuxt/image",
+    //...isDevelopment ? [] : ["nuxt-security"],
+    "@nuxtjs/tailwindcss",
   ],
   css: [],
   ssr: true,
@@ -28,8 +28,8 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: "en",
     strategy: "no_prefix",
-    lazy: false,
-    langDir: "locales",
+    lazy: true,
+    langDir: ".",
     compilation: {
       strictMessage: false,
       escapeHtml: true,
@@ -67,10 +67,12 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "en",
       },
+      bodyAttrs: {
+        class: "dark:bg-zinc-950 dark:text-white font-sans",
+      },
       link: [
-        { rel: "icon", href: "/favicon.ico", sizes: "any" },
         { rel: "icon", type: "image/webp", href: "/favicon.webp" },
-        { rel: "apple-touch-icon", href: "/favicon.png" },
+        { rel: "apple-touch-icon", href: "/favicon.webp" },
       ],
       meta: [
         { name: "apple-mobile-web-app-status-bar-style", content: "default" },
@@ -85,24 +87,24 @@ export default defineNuxtConfig({
     },
   },
 
-  security: {
+  /*security: {
     headers: {
       crossOriginEmbedderPolicy: false,
       contentSecurityPolicy: {
-        "default-src": ["\'self\'"],
-        "base-uri": ["\'self\'"],
-        "connect-src": ["\'self\'", "https:"],
-        "font-src": ["\'self\'"],
-        "form-action": ["\'none\'"],
-        "frame-ancestors": ["\'none\'"],
+        "default-src": ["'self'"],
+        "base-uri": ["'self'"],
+        "connect-src": ["'self'", "https:"],
+        "font-src": ["'self'"],
+        "form-action": ["'none'"],
+        "frame-ancestors": ["'none'"],
         "frame-src": ["https:"],
-        "img-src": ["\'self\'", "https:", "data:", "blob:"],
-        "manifest-src": ["\'self\'"],
-        "media-src": ["\'self\'", "https:"],
-        "object-src": ["\'none\'"],
-        "script-src": ["\'self\'", "\'unsafe-inline\'"],
-        "script-src-attr": ["\'none\'"],
-        "style-src": ["\'self\'", "\'unsafe-inline\'"],
+        "img-src": ["'self'", "https:", "data:", "blob:"],
+        "manifest-src": ["'self'"],
+        "media-src": ["'self'", "https:"],
+        "object-src": ["'none'"],
+        "script-src": ["'self'", "'unsafe-inline'"],
+        "script-src-attr": ["'none'"],
+        "style-src": ["'self'", "'unsafe-inline'"],
         "upgrade-insecure-requests": true,
       },
       permissionsPolicy: {
@@ -110,13 +112,5 @@ export default defineNuxtConfig({
       },
     },
     rateLimiter: false,
-  },
-  routeRules: {
-    // Static generation
-    /*"/signin": { prerender: true },
-    "/signup": { prerender: true },
-    // No JS.
-    "/terms": { experimentalNoScripts: true },
-    "/privacy": { experimentalNoScripts: true },*/
-  },
+  },*/
 });
