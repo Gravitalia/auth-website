@@ -1,0 +1,20 @@
+{
+  "modal": {
+    "done": "Done"
+  },
+
+  "authentification": {
+    "signin": "Sign in",
+    "server_addr": "Server address",
+    "host_provider": "Host provider",
+    "select_host_provider": "Select the service that hosts your data.",
+    "email": "Email address",
+    "password": "Password",
+    "forgot": "(Forgot?)",
+    "create_account": "No account? Create one!"
+  },
+
+  "or": "or",
+  "default": "Default",
+  "recommended": "(recommended)"
+}
