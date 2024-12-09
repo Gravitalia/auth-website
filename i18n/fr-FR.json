@@ -1,0 +1,20 @@
+{
+  "modal": {
+    "done": "Terminé"
+  },
+
+  "authentification": {
+    "signin": "Se connecter",
+    "server_addr": "Adresse du serveur",
+    "host_provider": "Hébergeur",
+    "select_host_provider": "Sélectionnez le service qui héberge vos données.",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "forgot": "(Oublié ?)",
+    "create_account": "Pas de compte ? Créez-en un !"
+  },
+
+  "or": "ou",
+  "default": "Par défaut",
+  "recommended": "(recommandé)"
+}
