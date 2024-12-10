@@ -11,7 +11,8 @@
     "email": "Email address",
     "password": "Password",
     "forgot": "(Forgot?)",
-    "create_account": "No account? Create one!"
+    "create_account": "No account? Create one!",
+    "mfa": "Enter your two-factor code."
   },
 
   "or": "or",
