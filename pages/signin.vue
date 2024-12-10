@@ -1,16 +1,21 @@
 <script setup lang="ts">
+import MultiFactor from "~/components/authentification/MultiFactor.vue";
 import Button from "~/components/form/Button.vue";
 import ButtonInvisible from "~/components/form/ButtonInvisible.vue";
+import Card from "~/components/form/Card.vue";
 import Input from "~/components/form/Input.vue";
 import Modal from "~/components/modal/Modal.vue";
+import useEnterKey from "~/composables/useEnterKey";
 import fetchServerConfiguration from "~/utils/fetchServerConfiguration";
 
 const isModalVisible = ref(false);
 const temporaryHostUrl = ref("");
+const step = ref(1);
 const errorState = reactive({
   url: false,
   email: false,
   password: false,
+  mfa: false,
 });
 const formData = reactive({
   hoister: "",
@@ -33,7 +38,7 @@ const finishModal = async () => {
     });
 };
 
-const url = (url: any) => {
+const url = (url: string) => {
   if (isValidServer(url)) {
     errorState.url = false;
     temporaryHostUrl.value = url;
@@ -42,7 +47,7 @@ const url = (url: any) => {
   }
 };
 
-const login = () => {
+const login = (code?: string) => {
   errorState.email = false;
 
   if (formData.email === "" || !isValidEmail(formData.email)) {
@@ -50,8 +55,12 @@ const login = () => {
     return;
   }
 
-  alert("OK");
+  step.value++;
+
+  alert(`Code: ${code}`);
 };
+
+useEnterKey(login);
 </script>
 
 <template>
@@ -87,7 +96,9 @@ const login = () => {
     <Input
       @entry="url"
       :error="errorState.url"
-      :success="!errorState.url && (formData.hoister !== '' || temporaryHostUrl !== '')"
+      :success="
+        !errorState.url && (formData.hoister !== '' || temporaryHostUrl !== '')
+      "
       type="url"
       :value="formData.hoister"
       class="w-full"
@@ -95,68 +106,76 @@ const login = () => {
     />
   </Modal>
 
-  <div class="flex flex-col items-center h-screen gap gap-y-6" style="background-image: url('');">
+  <div
+    class="flex flex-col items-center h-screen gap gap-y-6"
+    style="background-image: url(&quot;&quot;)"
+  >
     <!-- Centered card with the form. -->
-    <div
-      class="bg-white dark:bg-zinc-950 w-96 h-96 border border-zinc-200 dark:border-zinc-800 p-8 mt-auto flex flex-col"
-    >
-      <div class="flex flex-col flex-grow">
-        <!-- Title of the card. -->
-        <h1 class="text-xl font-bold mb-6">
-          {{ $t("authentification.signin") }}
-        </h1>
-        <!-- Section to open modal and update hosting provider. -->
-        <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
-          {{ $t("authentification.host_provider") }}
-        </p>
-        <ButtonInvisible @click="isModalVisible = true" class="mt-2 w-full">
-          {{ $t("default") }}
-        </ButtonInvisible>
-      </div>
+    <Card :title="$t('authentification.signin')">
+      <!-- Email and password combo. -->
+      <div v-show="step === 1">
+        <div class="flex flex-col flex-grow">
+          <!-- Section to open modal and update hosting provider. -->
+          <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
+            {{ $t("authentification.host_provider") }}
+          </p>
+          <ButtonInvisible @click="isModalVisible = true" class="mt-2 w-full">
+            {{ $t("default") }}
+          </ButtonInvisible>
+        </div>
 
-      <hr class="my-4 border-zinc-200 dark:border-zinc-800" />
+        <hr class="my-4 border-zinc-200 dark:border-zinc-800" />
 
-      <div class="flex flex-col flex-grow space-y-2">
-        <p
-          :class="[
-            'text-sm font-semibold',
-            errorState.email
-              ? 'text-red-500 dark:text-red-600'
-              : 'text-zinc-600 dark:text-zinc-300',
-          ]"
-        >
-          {{ $t("authentification.email") }}
-        </p>
-        <Input
-          @entry="(val: string) => (formData.email = val)"
-          :error="errorState.email"
-          autofocus
-          type="email"
-          :placeholder="$t('authentification.email')"
-          class="w-full"
-        />
-
-        <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
-          {{ $t("authentification.password") }}
-          <NuxtLink
-            tabindex="0"
-            to="mailto:support@gravitalia.com"
-            class="text-xs text-blue-500 dark:text-blue-400 hover:underline"
+        <div class="flex flex-col flex-grow space-y-2">
+          <p
+            :class="[
+              'text-sm font-semibold',
+              errorState.email
+                ? 'text-red-500 dark:text-red-600'
+                : 'text-zinc-600 dark:text-zinc-300',
+            ]"
           >
-            {{ $t("authentification.forgot") }}
-          </NuxtLink>
-        </p>
-        <Input
-          @entry="(val: string) => (formData.password = val)"
-          :error="errorState.password"
-          type="password"
-          :placeholder="$t('authentification.password')"
-          class="w-full"
-        />
-      </div>
-    </div>
+            {{ $t("authentification.email") }}
+          </p>
+          <Input
+            @entry="(val: string) => (formData.email = val)"
+            :error="errorState.email"
+            autofocus
+            type="email"
+            :placeholder="$t('authentification.email')"
+            class="w-full"
+          />
 
-    <Button @click="login" class="w-96">{{
+          <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
+            {{ $t("authentification.password") }}
+            <NuxtLink
+              tabindex="0"
+              to="mailto:support@gravitalia.com"
+              class="text-xs text-blue-500 dark:text-blue-400 hover:underline"
+            >
+              {{ $t("authentification.forgot") }}
+            </NuxtLink>
+          </p>
+          <Input
+            @entry="(val: string) => (formData.password = val)"
+            :error="errorState.password"
+            type="password"
+            :placeholder="$t('authentification.password')"
+            class="w-full"
+          />
+        </div>
+      </div>
+      <!-- If MFA is enabled. -->
+      <div v-show="step === 2">
+        <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
+          {{ $t("authentification.mfa") }}
+        </p>
+
+        <MultiFactor @code="login" />
+      </div>
+    </Card>
+
+    <Button @click="login()" class="w-96">{{
       $t("authentification.signin")
     }}</Button>
 
