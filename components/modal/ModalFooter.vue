@@ -11,6 +11,7 @@ defineProps(["disabledButton"]);
       :disabled="disabledButton"
       @click="$emit('finish')"
       class="px-3"
+      tabindex="0"
     >
       {{ $t("modal.done") }}
     </ButtonInvisible>
