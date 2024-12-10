@@ -11,7 +11,8 @@
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "forgot": "(Oublié ?)",
-    "create_account": "Pas de compte ? Créez-en un !"
+    "create_account": "Pas de compte ? Créez-en un !",
+    "mfa": "Entrez votre code à deux facteurs."
   },
 
   "or": "ou",
