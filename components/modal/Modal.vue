@@ -2,14 +2,29 @@
 import ModalFooter from "./ModalFooter.vue";
 import ModalHeader from "./ModalHeader.vue";
 
-defineProps({
+const { visible } = defineProps({
   title: String,
   description: String,
   visible: Boolean,
   disabledButton: Boolean,
 });
 
-defineEmits(["close", "finish"]);
+const emit = defineEmits(["close", "finish"]);
+
+const handleEscapeKey = (e: KeyboardEvent) => {
+  if (e.key === "Escape" && visible) {
+    emit("close");
+    e.preventDefault();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("keydown", handleEscapeKey);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleEscapeKey);
+});
 </script>
 
 <template>
