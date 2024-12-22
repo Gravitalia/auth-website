@@ -8,6 +8,7 @@ export default function (url: string): {
     url = "http://" + url;
   }
 
+  // Parse URL.
   const parsedUrl = new URL(url);
 
   if (parsedUrl.protocol === "http:" && parsedUrl.hostname !== "localhost") {
