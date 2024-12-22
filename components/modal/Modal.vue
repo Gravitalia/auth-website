@@ -34,12 +34,12 @@ onUnmounted(() => {
       <!-- Add a blured font to highlight modal. -->
       <div class="fixed inset-0 bg-zinc-900/75" aria-hidden="true"></div>
 
-      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div
-          class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
-        >
+      <div
+        class="fixed inset-0 flex items-center justify-center overflow-y-auto"
+      >
+        <div class="flex items-end justify-center p-2 text-center w-screen">
           <div
-            class="relative transform overflow-hidden rounded bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg"
+            class="relative transform overflow-hidden rounded bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-left w-screen max-w-lg"
           >
             <div class="px-3 pt-5 pb-4 sm:p-6 sm:pb-4">
               <div class="sm:flex sm:items-start">
