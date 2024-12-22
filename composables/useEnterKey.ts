@@ -1,6 +1,5 @@
 export default function useEnterKey(callback: any) {
   const handleEnterKey = (e: KeyboardEvent) => {
-    console.log("test");
     if (e.key === "Enter") {
       callback();
       // If enabled, buttons cannot be clicked via "Enter".
