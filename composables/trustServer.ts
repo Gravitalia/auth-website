@@ -5,22 +5,21 @@ export function useTrustedServer() {
 
   const addServer = (url: string) => {
     let { protocol, host } = normalizeUrl(url);
-    url = `${protocol}//${host}`;
 
-    if (!servers.value.find((u) => u === url)) servers.value.push(url);
+    if (!servers.value.find((u) => u === url)) servers.value.push(host);
   };
 
   const removeServer = (url: string) => {
     let { protocol, host } = normalizeUrl(url);
 
-    const elementIndex = servers.value.indexOf(`${protocol}//${host}`);
+    const elementIndex = servers.value.indexOf(host);
     servers.value.splice(elementIndex, 1);
   };
 
   const defaultServer = (suggestedServer?: string) => {
     if (suggestedServer) {
       let { protocol, host } = normalizeUrl(suggestedServer);
-      suggestedServer = `${protocol}//${host}`;
+      suggestedServer = host;
 
       if (servers.value.find((u) => u === suggestedServer))
         return suggestedServer;
