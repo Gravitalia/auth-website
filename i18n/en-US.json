@@ -1,4 +1,7 @@
 {
+  "title": "{name} Account",
+  "description": "A single bridge for confidential data management.",
+
   "modal": {
     "done": "Done"
   },
@@ -11,11 +14,19 @@
     "email": "Email address",
     "password": "Password",
     "forgot": "(Forgot?)",
+    "forgot_mfa": "Have you lost your key?",
     "create_account": "No account? Create one!",
-    "mfa": "Enter your two-factor code."
+    "mfa": "Enter your two-factor code.",
+    "trust": {
+      "title": "Add a trusted server",
+      "description": "Would you like to add {server} to your trusted servers? (A trusted server is a server that will be able to save your data (e-mail, password, etc.) without asking for authorization later on).",
+      "trust": "Trust",
+      "use_default": "Use default server"
+    }
   },
 
   "or": "or",
   "default": "Default",
-  "recommended": "(recommended)"
+  "recommended": "(recommended)",
+  "no_name": "No name"
 }

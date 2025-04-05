@@ -1,15 +1,45 @@
 <script setup lang="ts">
+import HostModal from "~/components/authentification/HostModal.vue";
 import MultiFactor from "~/components/authentification/MultiFactor.vue";
+import TrustModal from "~/components/authentification/TrustModal.vue";
 import Button from "~/components/form/Button.vue";
 import ButtonInvisible from "~/components/form/ButtonInvisible.vue";
 import Card from "~/components/form/Card.vue";
 import Input from "~/components/form/Input.vue";
-import Modal from "~/components/modal/Modal.vue";
 import useEnterKey from "~/composables/useEnterKey";
-import fetchServerConfiguration from "~/utils/fetchServerConfiguration";
+import type { AppInfo } from "~/types";
+import { ServerErrorClass } from "~/types";
+import { useUsers } from "~/stores/users";
+
+// Load custom server manager.
+const staticDefaultServer = useRuntimeConfig().public.defaultServer;
+const trustServer = reactive({
+  server: "",
+  shown: false,
+});
+const { addServer, defaultServer } = useTrustedServer();
+const { data, updateInfo } = await useAppInfo(
+  `${staticDefaultServer}/status.json`,
+);
+
+onMounted(async () => {
+  const server = useRoute().query?.server?.toString();
+  const defaultHoister = defaultServer(server);
+
+  const newStatus = await useAppInfo(`${defaultHoister}/status.json`);
+  if (newStatus.data.value)
+    hostUpdate(newStatus.data.value.url, newStatus.data.value);
+
+  if (server && defaultHoister === staticDefaultServer) {
+    trustServer.server = server;
+    trustServer.shown = true;
+  }
+});
+
+// Login logic.
+const user = useUsers();
 
 const isModalVisible = ref(false);
-const temporaryHostUrl = ref("");
 const step = ref(1);
 const errorState = reactive({
   url: false,
@@ -18,46 +48,49 @@ const errorState = reactive({
   mfa: false,
 });
 const formData = reactive({
-  hoister: "",
   email: "",
   password: "",
 });
 
-const closeModal = () => {
+const hostUpdate = (url?: string, info?: AppInfo) => {
   isModalVisible.value = false;
-};
-const finishModal = async () => {
-  fetchServerConfiguration(temporaryHostUrl.value)
-    .then((res) => {
-      console.log(res);
-      formData.hoister = temporaryHostUrl.value;
-      closeModal();
-    })
-    .catch((_e) => {
-      errorState.url = true;
-    });
-};
+  trustServer.shown = false;
 
-const url = (url: string) => {
-  if (isValidServer(url)) {
-    errorState.url = false;
-    temporaryHostUrl.value = url;
-  } else {
-    errorState.url = true;
+  if (url && info) {
+    updateInfo(info);
+    user.updateApi(normalizeUrl(info.url));
+    addServer(url);
+    // Add server update on user history.
+    useRouter().push({ query: { server: url } });
   }
 };
 
 const login = (code?: string) => {
   errorState.email = false;
+  errorState.password = false;
 
   if (formData.email === "" || !isValidEmail(formData.email)) {
     errorState.email = true;
     return;
+  } else if (formData.password === "" || formData.password.length < 8) {
+    errorState.password = true;
+    return;
   }
 
-  step.value++;
-
-  alert(`Code: ${code}`);
+  user
+    .signIn(formData.email, formData.password, code)
+    .then(async () => {
+      await navigateTo("/");
+    })
+    .catch((error: ServerErrorClass) => {
+      if (error.json.errors?.find((e) => e.field === "totpCode")) {
+        if (step.value === 1) step.value++;
+      } else if (error.json.detail?.includes("no rows")) {
+        errorState.email = true;
+      } else if (error.json.errors?.find((e) => e.field === "password")) {
+        errorState.password = true;
+      }
+    });
 };
 
 useEnterKey(login);
@@ -65,50 +98,26 @@ useEnterKey(login);
 
 <template>
   <!-- Hosting provider edit modal dialog. -->
-  <Modal
-    :title="$t('authentification.host_provider')"
-    :description="$t('authentification.select_host_provider')"
+  <HostModal
+    @host="hostUpdate"
     :visible="isModalVisible"
-    :disabled-button="errorState.url"
-    @close="closeModal"
-    @finish="finishModal"
-  >
-    <!-- Use Gravitalia by default. -->
-    <ButtonInvisible
-      @click="(temporaryHostUrl = 'auth.gravitalia.com'), finishModal()"
-      class="mt-2 w-full"
-    >
-      Gravitalia
-      <span class="mt-0.5 ml-2 text-xs text-zinc-600 dark:text-zinc-300">{{
-        $t("recommended")
-      }}</span>
-    </ButtonInvisible>
+    :defaultValue="user.host"
+  />
 
-    <div class="inline-flex items-center justify-center w-full">
-      <hr class="w-full my-4 border-zinc-200 dark:border-zinc-800" />
-      <span
-        class="absolute px-3 font-medium text-zinc-600 dark:text-zinc-300 -translate-x-1/2 bg-white dark:bg-zinc-950 left-1/2"
-        >{{ $t("or") }}</span
-      >
-    </div>
+  <TrustModal
+    @host="hostUpdate"
+    :visible="trustServer.shown"
+    :server="trustServer.server"
+  />
 
-    <!-- Enter custom server. -->
-    <Input
-      @entry="url"
-      :error="errorState.url"
-      :success="
-        !errorState.url && (formData.hoister !== '' || temporaryHostUrl !== '')
-      "
-      type="url"
-      :value="formData.hoister"
-      class="w-full"
-      :placeholder="$t('authentification.server_addr')"
-    />
-  </Modal>
-
-  <div
+  <form
+    @submit.prevent="login()"
     class="flex flex-col items-center h-screen gap gap-y-6"
-    style="background-image: url(&quot;&quot;)"
+    :style="{
+      backgroundImage: 'url(' + data?.background + ')',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+    }"
   >
     <!-- Centered card with the form. -->
     <Card :title="$t('authentification.signin')">
@@ -120,7 +129,11 @@ useEnterKey(login);
             {{ $t("authentification.host_provider") }}
           </p>
           <ButtonInvisible @click="isModalVisible = true" class="mt-2 w-full">
-            {{ $t("default") }}
+            {{
+              data?.url === useRuntimeConfig().public.defaultServer
+                ? $t("default")
+                : data?.name || $t("no_name")
+            }}
           </ButtonInvisible>
         </div>
 
@@ -141,16 +154,20 @@ useEnterKey(login);
             @entry="(val: string) => (formData.email = val)"
             :error="errorState.email"
             autofocus
+            required
             type="email"
             :placeholder="$t('authentification.email')"
             class="w-full"
           />
 
-          <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
+          <p
+            v-if="data?.support"
+            class="text-sm font-semibold text-zinc-600 dark:text-zinc-300"
+          >
             {{ $t("authentification.password") }}
             <NuxtLink
               tabindex="0"
-              to="mailto:support@gravitalia.com"
+              :to="data.support"
               class="text-xs text-blue-500 dark:text-blue-400 hover:underline"
             >
               {{ $t("authentification.forgot") }}
@@ -159,23 +176,38 @@ useEnterKey(login);
           <Input
             @entry="(val: string) => (formData.password = val)"
             :error="errorState.password"
+            required
             type="password"
+            minlength="8"
             :placeholder="$t('authentification.password')"
             class="w-full"
           />
         </div>
       </div>
       <!-- If MFA is enabled. -->
-      <div v-show="step === 2">
+      <div v-show="step === 2" class="space-y-2">
         <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
           {{ $t("authentification.mfa") }}
         </p>
 
         <MultiFactor @code="login" />
+
+        <p
+          v-if="data?.support"
+          class="text-sm font-semibold text-zinc-600 dark:text-zinc-300"
+        >
+          <NuxtLink
+            tabindex="0"
+            :to="data.support"
+            class="text-xs text-blue-500 dark:text-blue-400 hover:underline"
+          >
+            {{ $t("authentification.forgot_mfa") }}
+          </NuxtLink>
+        </p>
       </div>
     </Card>
 
-    <Button @click="login()" class="w-96">{{
+    <Button @click="login()" class="w-80 lg:w-96" type="submit">{{
       $t("authentification.signin")
     }}</Button>
 
@@ -190,5 +222,5 @@ useEnterKey(login);
         {{ $t("authentification.create_account") }}
       </NuxtLink>
     </footer>
-  </div>
+  </form>
 </template>

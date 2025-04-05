@@ -1,4 +1,7 @@
 {
+  "title": "Compte {name}",
+  "description": "Un seul pont pour gérer ses données en toute confidentialité.",
+
   "modal": {
     "done": "Terminé"
   },
@@ -11,11 +14,19 @@
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "forgot": "(Oublié ?)",
+    "forgot_mfa": "Avez-vous perdu votre clé ?",
     "create_account": "Pas de compte ? Créez-en un !",
-    "mfa": "Entrez votre code à deux facteurs."
+    "mfa": "Entrez votre code à deux facteurs.",
+    "trust": {
+      "title": "Ajouter un serveur de confiance",
+      "description": "Souhaitez-vous ajouter {server} à vos serveurs de confiance ?\n(Un serveur de confiance est un serveur qui pourra sauvegarder vos données (e-mail, mot de passe, etc.) sans redemander d'autorisation postérieure.)",
+      "trust": "Faire confiance",
+      "use_default": "Serveur par défaut"
+    }
   },
 
   "or": "ou",
   "default": "Par défaut",
-  "recommended": "(recommandé)"
+  "recommended": "(recommandé)",
+  "no_name": "Aucun nom"
 }
