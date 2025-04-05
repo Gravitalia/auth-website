@@ -40,7 +40,7 @@ const mfa_keypress = async (event: KeyboardEvent, index: number) => {
       :key="index"
       v-model="mfaCode[index]"
       :autofocus="index === 0"
-      class="h-12 w-10 border mx-1 rounded flex items-center text-center text-3xl"
+      class="h-12 w-10 border mx-1 rounded flex items-center text-center text-3xl dark:border-zinc-800 dark:bg-zinc-950"
       maxlength="1"
       inputmode="decimal"
       @keydown="(event: Event) => mfa_keypress(event, index)"
