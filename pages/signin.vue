@@ -79,6 +79,9 @@ const login = (code?: string) => {
 
   user
     .signIn(formData.email, formData.password, code)
+    .then(async () => {
+      await navigateTo("/");
+    })
     .catch((error: ServerErrorClass) => {
       if (error.json.errors?.find((e) => e.field === "totpCode")) {
         if (step.value === 1) step.value++;
@@ -87,9 +90,6 @@ const login = (code?: string) => {
       } else if (error.json.errors?.find((e) => e.field === "password")) {
         errorState.password = true;
       }
-    })
-    .then(async () => {
-      await navigateTo("/");
     });
 };
 
