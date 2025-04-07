@@ -22,11 +22,21 @@
       "description": "Would you like to add {server} to your trusted servers? (A trusted server is a server that will be able to save your data (e-mail, password, etc.) without asking for authorization later on).",
       "trust": "Trust",
       "use_default": "Use default server"
-    }
+    },
+
+    "login_account": "Already an account? Sign in!",
+    "create": "Create my account",
+    "invite_only": "This server requires an invitation. The invitation code is checked during registration.",
+    "invite_code": "Invitation code",
+    "id": "Username",
+    "tos": "Terms of Service",
+    "privacy": "Privacy policy",
+    "terms": "By registering, you accept the terms of use and privacy policy of the server."
   },
 
   "or": "or",
   "default": "Default",
   "recommended": "(recommended)",
-  "no_name": "No name"
+  "no_name": "No name",
+  "next": "Next"
 }

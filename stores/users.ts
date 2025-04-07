@@ -65,5 +65,41 @@ export const useUsers = defineStore("users", {
         throw error;
       }
     },
+
+    async signUp(
+      id: string,
+      email: string,
+      password: string,
+      invite?: string,
+    ): Promise<void> {
+      const route = `${this.protocol}//${this.host}/create`;
+
+      try {
+        const response = await fetch(route, {
+          method: "post",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id, email, password, invite }),
+        });
+
+        let json = await response.json();
+
+        if (!response.ok) {
+          json = json as ServerError;
+          throw new ServerErrorClass(json);
+        }
+
+        json = json as Response;
+        useCookie("token", {
+          maxAge: 60 * 60 * 24 * 30 * 2, // 2 months.
+          sameSite: "strict",
+          secure: isProduction,
+        }).value = json.token;
+      } catch (error) {
+        throw error;
+      }
+    },
   },
 });
