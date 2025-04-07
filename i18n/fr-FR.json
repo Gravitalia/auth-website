@@ -22,11 +22,21 @@
       "description": "Souhaitez-vous ajouter {server} à vos serveurs de confiance ?\n(Un serveur de confiance est un serveur qui pourra sauvegarder vos données (e-mail, mot de passe, etc.) sans redemander d'autorisation postérieure.)",
       "trust": "Faire confiance",
       "use_default": "Serveur par défaut"
-    }
+    },
+
+    "login_account": "Déjà un compte ? Connectez-vous !",
+    "create": "Créer mon compte",
+    "invite_only": "Ce serveur requiert une invitation. Le code d'invitation est vérifié lors de l'inscription.",
+    "invite_code": "Code d'invitation",
+    "id": "Nom d'utilisateur",
+    "tos": "Conditions générales d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "terms": "En vous inscrivant, vous acceptez les conditions générales d'utilisation et la politique de confidentialité du serveur."
   },
 
   "or": "ou",
   "default": "Par défaut",
   "recommended": "(recommandé)",
-  "no_name": "Aucun nom"
+  "no_name": "Aucun nom",
+  "next": "Suivant"
 }
