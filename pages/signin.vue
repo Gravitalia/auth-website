@@ -161,11 +161,11 @@ useEnterKey(login);
           />
 
           <p
-            v-if="data?.support"
             class="text-sm font-semibold text-zinc-600 dark:text-zinc-300"
           >
             {{ $t("authentification.password") }}
             <NuxtLink
+              v-if="data?.support"
               tabindex="0"
               :to="data.support"
               class="text-xs text-blue-500 dark:text-blue-400 hover:underline"
@@ -207,7 +207,7 @@ useEnterKey(login);
       </div>
     </Card>
 
-    <Button @click="login()" class="w-80 lg:w-96" type="submit">{{
+    <Button class="w-80 lg:w-96" type="submit">{{
       $t("authentification.signin")
     }}</Button>
 
