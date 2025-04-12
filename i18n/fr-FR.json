@@ -34,6 +34,13 @@
     "terms": "En vous inscrivant, vous acceptez les conditions générales d'utilisation et la politique de confidentialité du serveur."
   },
 
+  "navbar": {
+    "profile": "Profil",
+    "keys": "Clés",
+    "account": "Compte",
+    "logout": "Se déconnecter"
+  },
+
   "or": "ou",
   "default": "Par défaut",
   "recommended": "(recommandé)",
