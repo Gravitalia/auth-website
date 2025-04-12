@@ -50,6 +50,7 @@ const errorState = reactive({
 const formData = reactive({
   email: "",
   password: "",
+  totpCode: "",
 });
 
 const hostUpdate = (url?: string, info?: AppInfo) => {
@@ -77,8 +78,10 @@ const login = (code?: string) => {
     return;
   }
 
+  if (code) formData.totpCode = code;
+
   user
-    .signIn(formData.email, formData.password, code)
+    .signIn(formData.email, formData.password, code || formData.totpCode)
     .then(async () => {
       await navigateTo("/");
     })
