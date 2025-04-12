@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const path = useRoute().path;
+const path = computed(() => useRoute().path);
 const links = [
   {
     name: "navbar.profile",
@@ -26,7 +26,7 @@ const { data } = await useAppInfo(`${user.host}/status.json`);
 
 <template>
   <nav
-    class="flex items-center justify-between bg-white px-4 md:px-24 py-3 shadow-sm rounded-t-md"
+    class="flex items-center justify-between bg-white dark:bg-zinc-900 px-4 md:px-24 py-3 shadow-sm rounded-t-md"
   >
     <div class="flex items-center space-x-10">
       <NuxtImg v-if="data?.favicon" :src="data.favicon" class="size-10" />
@@ -41,14 +41,14 @@ const { data } = await useAppInfo(`${user.host}/status.json`);
           :class="[
             'relative transition group',
             link.path === path
-              ? 'text-black'
-              : 'text-gray-500 hover:text-black',
+              ? ''
+              : 'text-zinc-600 dark:text-zinc-300 hover:text-black dark:hover:text-white',
           ]"
         >
           {{ $t(link.name) }}
           <span
             :class="[
-              'absolute left-0 -bottom-full h-[2px] w-full bg-black rounded-full transition-opacity',
+              'absolute left-0 -bottom-full h-[2px] w-full bg-black dark:bg-white rounded-full transition-opacity',
               link.path === path
                 ? 'opacity-100'
                 : 'opacity-0 group-hover:opacity-100',
