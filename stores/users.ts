@@ -27,7 +27,7 @@ export const useUsers = defineStore("users", {
     }
 
     return {
-      userData: {},
+      userData: {} as User,
       host,
       protocol,
       _token: token,
@@ -73,7 +73,7 @@ export const useUsers = defineStore("users", {
     ): Promise<void> {
       const route = `${this.protocol}//${this.host}/login`;
       const payload = { email, password, totpCode };
-      await this._post(route, payload);
+      await this._req(route, payload);
     },
 
     async signUp(
@@ -84,22 +84,48 @@ export const useUsers = defineStore("users", {
     ): Promise<void> {
       const route = `${this.protocol}//${this.host}/create`;
       const payload = { id, email, password, invite };
-      await this._post(route, payload);
+      await this._req(route, payload);
     },
 
     logout(): void {
-      this.userData = {};
+      this.userData = {} as User;
       this._token = undefined;
       useCookie("token").value = undefined;
     },
 
-    async _post(url: string, body: object): Promise<void> {
+    async removeKey(id: number): Promise<void> {
+      const route = `${this.protocol}//${this.host}/users/@me`;
+      const payload = { publicKeys: id };
+      await this._req(route, payload, {
+        method: "patch",
+        authorization: this._token,
+      });
+    },
+
+    async addKey(pem: string): Promise<Array<string>> {
+      const route = `${this.protocol}//${this.host}/users/@me`;
+      const payload = { publicKeys: pem };
+      return await this._req(route, payload, {
+        method: "patch",
+        authorization: this._token,
+      });
+    },
+
+    async _req(
+      url: string,
+      body: object,
+      opt: { method?: string; authorization?: string } = {
+        method: "post",
+        authorization: undefined,
+      },
+    ): Promise<any> {
       try {
         const response = await fetch(url, {
-          method: "POST",
+          method: opt.method,
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: opt.authorization || "",
           },
           body: JSON.stringify(body),
         });
@@ -108,8 +134,12 @@ export const useUsers = defineStore("users", {
 
         if (!response.ok) throw new ServerErrorClass(data as ServerError);
 
-        const { token } = data as Response;
-        await this._setToken(token);
+        if ((data as Response).token) {
+          const { token } = data as Response;
+          await this._setToken(token);
+        } else {
+          return data;
+        }
       } catch (err) {
         throw err;
       }
