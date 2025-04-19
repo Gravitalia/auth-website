@@ -34,6 +34,14 @@
     "terms": "En vous inscrivant, vous acceptez les conditions générales d'utilisation et la politique de confidentialité du serveur."
   },
 
+  "keys": {
+    "generate": "Générer une clé",
+    "title": "Clés publiques sur le serveur",
+    "description": "Clé {id} du {date}",
+    "download": "Télécharger la clé publique",
+    "delete": "Supprimer"
+  },
+
   "navbar": {
     "profile": "Profil",
     "keys": "Clés",
