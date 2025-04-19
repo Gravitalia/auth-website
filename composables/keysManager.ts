@@ -56,6 +56,7 @@ export default function useKeys() {
     await u.removeKey(id);
     user.publicKeys.splice(
       user.publicKeys.findIndex((key) => key.id === keyId),
+      1,
     );
   };
 
