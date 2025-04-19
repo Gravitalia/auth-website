@@ -34,6 +34,14 @@
     "terms": "By registering, you accept the terms of use and privacy policy of the server."
   },
 
+  "keys": {
+    "generate": "Generate a key",
+    "title": "Public keys on server",
+    "description": "Key {id} of {date}",
+    "download": "Download public key",
+    "delete": "Delete"
+  },
+
   "navbar": {
     "profile": "Profile",
     "keys": "Keys",
