@@ -6,6 +6,17 @@
     "done": "Done"
   },
 
+  "error": {
+    "form": {
+      "title": "Error in the form",
+      "email": "Email is not valid.",
+      "password": "Password is invalid.",
+      "invite_code": "Enter a valid invite code.",
+      "id": "Identifier is already in use."
+    },
+    "internal_server_error": "Selected host is unavailable"
+  },
+
   "authentification": {
     "signin": "Sign in",
     "server_addr": "Server address",
