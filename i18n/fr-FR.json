@@ -6,6 +6,17 @@
     "done": "Terminé"
   },
 
+  "error": {
+    "form": {
+      "title": "Erreur dans le formulaire",
+      "email": "L'adresse courriel est invalide.",
+      "password": "Le mot de passe est invalide.",
+      "invite_code": "Entrez une invitation valide.",
+      "id": "L'identifiant est déjà utilisé."
+    },
+    "internal_server_error": "L'hébergeur sélectionné est indisponible"
+  },
+
   "authentification": {
     "signin": "Se connecter",
     "server_addr": "Adresse du serveur",
