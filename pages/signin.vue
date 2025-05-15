@@ -10,6 +10,7 @@ import useEnterKey from "~/composables/useEnterKey";
 import type { AppInfo } from "~/types";
 import { ServerErrorClass } from "~/types";
 import { useUsers } from "~/stores/users";
+import { toast } from "~/composables/useToast";
 
 // Load custom server manager.
 const staticDefaultServer = useRuntimeConfig().public.defaultServer;
@@ -21,20 +22,24 @@ const { addServer, defaultServer } = useTrustedServer();
 const { data, updateInfo } = await useAppInfo(
   `${staticDefaultServer}/status.json`,
 );
+const { t } = useI18n();
 
-onMounted(async () => {
+const checkAndUpdateServer = async () => {
   const server = useRoute().query?.server?.toString();
   const defaultHoister = defaultServer(server);
 
   const newStatus = await useAppInfo(`${defaultHoister}/status.json`);
-  if (newStatus.data.value)
+  if (newStatus.data.value) {
     hostUpdate(newStatus.data.value.url, newStatus.data.value);
+  }
 
   if (server && defaultHoister === staticDefaultServer) {
     trustServer.server = server;
     trustServer.shown = true;
   }
-});
+};
+
+onMounted(checkAndUpdateServer);
 
 // Login logic.
 const user = useUsers();
@@ -47,7 +52,7 @@ const errorState = reactive({
   password: false,
   mfa: false,
 });
-const formData = reactive({
+const credentials = reactive({
   email: "",
   password: "",
   totpCode: "",
@@ -66,32 +71,51 @@ const hostUpdate = (url?: string, info?: AppInfo) => {
   }
 };
 
-const login = (code?: string) => {
+const error = (field: keyof typeof errorState, message: string) => {
+  errorState[field] = true;
+  toast({
+    title: t("error.form.title"),
+    description: t(message),
+  });
+};
+
+const login = (totpCode?: string) => {
   errorState.email = false;
   errorState.password = false;
 
-  if (formData.email === "" || !isValidEmail(formData.email)) {
-    errorState.email = true;
+  if (credentials.email === "" || !isValidEmail(credentials.email)) {
+    error("email", "error.form.email");
     return;
-  } else if (formData.password === "" || formData.password.length < 8) {
-    errorState.password = true;
+  } else if (credentials.password === "" || credentials.password.length < 8) {
+    error("password", "error.form.password");
     return;
   }
 
-  if (code) formData.totpCode = code;
+  if (totpCode) credentials.totpCode = totpCode;
 
   user
-    .signIn(formData.email, formData.password, code || formData.totpCode)
+    .signIn(
+      credentials.email,
+      credentials.password,
+      totpCode || credentials.totpCode,
+    )
     .then(async () => {
       await navigateTo("/");
     })
-    .catch((error: ServerErrorClass) => {
-      if (error.json.errors?.find((e) => e.field === "totpCode")) {
-        if (step.value === 1) step.value++;
-      } else if (error.json.detail?.includes("no rows")) {
-        errorState.email = true;
-      } else if (error.json.errors?.find((e) => e.field === "password")) {
-        errorState.password = true;
+    .catch((err: ServerErrorClass) => {
+      try {
+        if (err.json.errors?.find((e) => e.field === "totpCode")) {
+          if (step.value === 1) step.value++;
+        } else if (err.json.detail?.includes("no rows")) {
+          error("email", "error.form.email");
+        } else if (err.json.errors?.find((e) => e.field === "password")) {
+          error("password", "error.form.password");
+        }
+      } catch (_) {
+        toast({
+          title: t("error.internal_server_error"),
+          description: t("error.internal_server_error"),
+        });
       }
     });
 };
@@ -123,7 +147,7 @@ useEnterKey(login);
     }"
   >
     <!-- Centered card with the form. -->
-    <Card :title="$t('authentification.signin')">
+    <Card class="w-80 lg:w-96" :title="$t('authentification.signin')">
       <!-- Email and password combo. -->
       <div v-show="step === 1">
         <div class="flex flex-col flex-grow">
@@ -154,7 +178,7 @@ useEnterKey(login);
             {{ $t("authentification.email") }}
           </p>
           <Input
-            @entry="(val: string) => (formData.email = val)"
+            @entry="(val: string) => (credentials.email = val)"
             :error="errorState.email"
             autofocus
             required
@@ -163,9 +187,7 @@ useEnterKey(login);
             class="w-full"
           />
 
-          <p
-            class="text-sm font-semibold text-zinc-600 dark:text-zinc-300"
-          >
+          <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
             {{ $t("authentification.password") }}
             <NuxtLink
               v-if="data?.support"
@@ -177,7 +199,7 @@ useEnterKey(login);
             </NuxtLink>
           </p>
           <Input
-            @entry="(val: string) => (formData.password = val)"
+            @entry="(val: string) => (credentials.password = val)"
             :error="errorState.password"
             required
             type="password"

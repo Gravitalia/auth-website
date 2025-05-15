@@ -20,20 +20,24 @@ const { addServer, defaultServer } = useTrustedServer();
 const { data, updateInfo } = await useAppInfo(
   `${staticDefaultServer}/status.json`,
 );
+const { t } = useI18n();
 
-onMounted(async () => {
+const checkAndUpdateServer = async () => {
   const server = useRoute().query?.server?.toString();
   const defaultHoister = defaultServer(server);
 
   const newStatus = await useAppInfo(`${defaultHoister}/status.json`);
-  if (newStatus.data.value)
+  if (newStatus.data.value) {
     hostUpdate(newStatus.data.value.url, newStatus.data.value);
+  }
 
   if (server && defaultHoister === staticDefaultServer) {
     trustServer.server = server;
     trustServer.shown = true;
   }
-});
+};
+
+onMounted(checkAndUpdateServer);
 
 // Login logic.
 const user = useUsers();
@@ -67,6 +71,14 @@ const hostUpdate = (url?: string, info?: AppInfo) => {
   }
 };
 
+const error = (field: keyof typeof errorState, message: string) => {
+  errorState[field] = true;
+  toast({
+    title: t("error.form.title"),
+    description: t(message),
+  });
+};
+
 const create = () => {
   // Handle step 0 (invite).
   if (step.value === 0 && formData.invite_code !== "") return step.value++;
@@ -74,7 +86,7 @@ const create = () => {
     (step.value === 0 || data.value?.invite_only) &&
     formData.invite_code === ""
   )
-    return (errorState.invite_code = true);
+    return error("invite_code", "error.form.invite_code");
 
   errorState.id = false;
   errorState.email = false;
@@ -83,11 +95,11 @@ const create = () => {
 
   // Handle step 1 (data).
   if (formData.id === "" || formData.id.length < 2 || formData.id.length > 15)
-    return (step.value = 1), (errorState.id = true);
+    return (step.value = 1), error("id", "error.form.id");
   else if (formData.email === "" || !isValidEmail(formData.email))
-    return (step.value = 1), (errorState.email = true);
+    return (step.value = 1), error("email", "error.form.email");
   else if (formData.password === "" || formData.password.length < 8)
-    return (step.value = 1), (errorState.password = true);
+    return (step.value = 1), error("password", "error.form.password");
 
   // Handle step 2 (tos).
   if (
@@ -107,19 +119,19 @@ const create = () => {
     .then(async () => {
       await navigateTo("/");
     })
-    .catch((error: ServerErrorClass) => {
-      if (error.json.errors?.find((e) => e.field === "invite")) {
+    .catch((err: ServerErrorClass) => {
+      if (err.json.errors?.find((e) => e.field === "invite")) {
         step.value = 0;
-        errorState.invite_code = true;
-      } else if (error.json.detail?.includes("Key (id)=")) {
+        error("invite_code", "error.form.invite_code");
+      } else if (err.json.detail?.includes("Key (id)=")) {
         step.value = 1;
-        errorState.id = true;
-      } else if (error.json.detail?.includes("Key (email)=")) {
+        error("id", "error.form.id");
+      } else if (err.json.detail?.includes("Key (email)=")) {
         step.value = 1;
-        errorState.email = true;
-      } else if (error.json.errors?.find((e) => e.field === "password")) {
+        error("email", "error.form.email");
+      } else if (err.json.errors?.find((e) => e.field === "password")) {
         step.value = 1;
-        errorState.password = true;
+        error("password", "error.form.password");
       }
     });
 };
@@ -142,7 +154,7 @@ useEnterKey(create);
   />
 
   <form
-    @submit.prevent="function() {}"
+    @submit.prevent="function () {}"
     class="flex flex-col items-center h-screen gap gap-y-6"
     :style="{
       backgroundImage: 'url(' + data?.background + ')',
@@ -151,7 +163,7 @@ useEnterKey(create);
     }"
   >
     <!-- Centered card with the form. -->
-    <Card :title="$t('authentification.create')">
+    <Card class="w-80 lg:w-96" :title="$t('authentification.create')">
       <div class="flex flex-col flex-grow">
         <!-- Section to open modal and update hosting provider. -->
         <p class="text-sm font-semibold text-zinc-600 dark:text-zinc-300">
