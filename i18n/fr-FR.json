@@ -60,6 +60,19 @@
     "logout": "Se déconnecter"
   },
 
+  "authorize": {
+    "title": "Se connecter à {host}",
+    "create_key": "Une paire de clés cryptographiques, comprenant une clé privée sécurisée localement et une clé publique, est requise pour l'authentification. Veuillez suivre les instructions de votre navigateur ou cliquer sur le bouton ci-dessous pour la générer. Ce mécanisme permet une connexion décentralisée.",
+    "access": {
+      "title": "Ceci autorisera {host} à :",
+      "username": "Accéder à votre nom d'utilisateur"
+    },
+    "error": {
+      "redirect": "Oups... il manque le champ \"redirect\" dans la query.",
+      "challenge": "Ajoutez un champ \"challenge\" avec un code WebAuthN encodé en base64 dans la query."
+    }
+  },
+
   "or": "ou",
   "default": "Par défaut",
   "recommended": "(recommandé)",

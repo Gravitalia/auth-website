@@ -60,6 +60,19 @@
     "logout": "Log out"
   },
 
+  "authorize": {
+    "title": "Log in to {host}",
+    "create_key": "A cryptographic key pair, comprising a locally-secured private key and a public key, is required for authentication. Please follow your browser's instructions or click on the button below to generate it. This mechanism enables a decentralised connection.",
+    "access": {
+      "title": "This will allow {host} to:",
+      "username": "Access your username"
+    },
+    "error": {
+      "redirect": "Oops... \"redirect\" field is missing on query.",
+      "challenge": "Add a query field \"challenge\" with a base64 encoded WebAuthN code."
+    }
+  },
+
   "or": "or",
   "default": "Default",
   "recommended": "(recommended)",
