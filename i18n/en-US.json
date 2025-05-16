@@ -6,6 +6,17 @@
     "done": "Done"
   },
 
+  "error": {
+    "form": {
+      "title": "Error in the form",
+      "email": "Email is not valid.",
+      "password": "Password is invalid.",
+      "invite_code": "Enter a valid invite code.",
+      "id": "Identifier is already in use."
+    },
+    "internal_server_error": "Selected host is unavailable"
+  },
+
   "authentification": {
     "signin": "Sign in",
     "server_addr": "Server address",
@@ -47,6 +58,19 @@
     "keys": "Keys",
     "account": "Account",
     "logout": "Log out"
+  },
+
+  "authorize": {
+    "title": "Log in to {host}",
+    "create_key": "A cryptographic key pair, comprising a locally-secured private key and a public key, is required for authentication. Please follow your browser's instructions or click on the button below to generate it. This mechanism enables a decentralised connection.",
+    "access": {
+      "title": "This will allow {host} to:",
+      "username": "Access your username"
+    },
+    "error": {
+      "redirect": "Oops... \"redirect\" field is missing on query.",
+      "challenge": "Add a query field \"challenge\" with a base64 encoded WebAuthN code."
+    }
   },
 
   "or": "or",
