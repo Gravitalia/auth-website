@@ -5,6 +5,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
     // If user is not logged, redirect it to login page.
     return navigateTo("/signin", { redirectCode: 307 });
   } else {
-    user.userData = await user.get();
+    try {
+      user.userData = await user.get();
+    } catch (_) {
+      return navigateTo("/signin", { redirectCode: 307 });
+    }
   }
 });
