@@ -45,12 +45,38 @@
     "terms": "En vous inscrivant, vous acceptez les conditions générales d'utilisation et la politique de confidentialité du serveur."
   },
 
+  "profile": {
+    "save": "Sauvegarder",
+    "my_profile": "Mon profil",
+    "contact_info": "Information de contact",
+    "security": "Securité",
+    "toast": {
+      "title": "Compte",
+      "profile": "Votre compte a été modifié.",
+      "password": "Votre mot de passe a été modifié.",
+      "totp": "Authentification à deux facteurs activée sur le compte !"
+    },
+    "password": {
+      "title": "Modifier le mot de passe",
+      "new": "Nouveau mot de passe",
+      "old": "Ancien mot de passe"
+    },
+    "totp": {
+      "button": "Authentification à deux facteurs (TOTP)",
+      "title": "Mettre en place l'A2F",
+      "description": "est la clé à entrer sur votre application.",
+      "code": "Code"
+    },
+    "password_required": "Le mot de passe est requis pour modifier l'adresse e-mail."
+  },
+
   "keys": {
     "generate": "Générer une clé",
     "title": "Clés publiques sur le serveur",
     "description": "Clé {id} du {date}",
     "download": "Télécharger la clé publique",
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "empty": "Créez votre première paire de clé pour commencer à vous connecter !"
   },
 
   "navbar": {

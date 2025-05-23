@@ -45,12 +45,38 @@
     "terms": "By registering, you accept the terms of use and privacy policy of the server."
   },
 
+  "profile": {
+    "save": "Save",
+    "my_profile": "My profile",
+    "contact_info": "Contact details",
+    "security": "Security",
+    "toast": {
+      "title": "Account",
+      "profile": "Your account has been modified.",
+      "password": "Your password has been modified.",
+      "totp": "2FA activated on account!"
+    },
+    "password": {
+      "title": "Update password",
+      "new": "New password",
+      "old": "Old password"
+    },
+    "totp": {
+      "button": "Two-factor authentication (TOTP)",
+      "title": "Set up 2FA",
+      "description": "is the key to write on application.",
+      "code": "Code"
+    },
+    "password_required": "Password is required to update email address."
+  },
+
   "keys": {
     "generate": "Generate a key",
     "title": "Public keys on server",
     "description": "Key {id} of {date}",
     "download": "Download public key",
-    "delete": "Delete"
+    "delete": "Delete",
+    "empty": "Create your first key pair to begin to connect!"
   },
 
   "navbar": {

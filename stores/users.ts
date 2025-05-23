@@ -102,9 +102,23 @@ export const useUsers = defineStore("users", {
       });
     },
 
-    async addKey(pem: string): Promise<Array<string>> {
+    async updateMe(opt: {
+      pem?: string;
+      username?: string;
+      email?: string;
+      password?: string;
+      totpSecret?: string;
+      totpCode?: string;
+    }): Promise<Array<string>> {
       const route = `${this.protocol}//${this.host}/users/@me`;
-      const payload = { publicKeys: pem };
+      const payload = {
+        publicKeys: opt.pem,
+        username: opt.username,
+        email: opt.email,
+        password: opt.password,
+        totpSecret: opt.totpSecret,
+        totpCode: opt.totpCode,
+      };
       return await this._req(route, payload, {
         method: "patch",
         authorization: this._token,
