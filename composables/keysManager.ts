@@ -40,7 +40,7 @@ export default function useKeys() {
       `\n-----END PUBLIC KEY-----`;
 
     // Upload key.
-    const id = (await u.addKey(pem))[0];
+    const id = (await u.updateMe({ pem }))[0];
     user.publicKeys.push({
       id,
       owner: user.id,
