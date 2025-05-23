@@ -62,6 +62,9 @@ const { keys, generateKey, deleteKey } = useKeys();
           <span class="mt-0.5 ml-1.5">{{ $t("keys.delete") }}</span>
         </FormButtonInvisible>
       </div>
+      <div v-if="keys.length === 0">
+        <p class="text-sm">{{ $t("keys.empty") }}</p>
+      </div>
     </FormCard>
   </div>
 </template>
