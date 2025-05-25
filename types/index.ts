@@ -1,6 +1,6 @@
 export interface AppInfo {
   name: string;
-  url: string;
+  address: string;
   favicon?: string;
   terms_of_service?: string;
   privacy_policy?: string;
@@ -12,12 +12,12 @@ export interface AppInfo {
 
 export interface User {
   id: string;
-  username: string;
+  preferredUsername: string;
   summary?: string;
   avatar?: string;
   flags: number;
-  created_at: string;
-  public_keys: Key[];
+  published: string;
+  publicKeys: Key[];
 }
 
 export interface Key {
