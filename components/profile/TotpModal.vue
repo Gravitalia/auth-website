@@ -64,7 +64,7 @@ onMounted(() => {
 
     <Input
       v-model="data.password"
-      type="text"
+      type="password"
       required
       class="mt-4 w-full"
       :placeholder="$t('authentification.password')"
