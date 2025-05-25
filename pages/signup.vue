@@ -24,11 +24,12 @@ const { t } = useI18n();
 
 const checkAndUpdateServer = async () => {
   const server = useRoute().query?.server?.toString();
+  console.log(server)
   const defaultHoister = defaultServer(server);
 
   const newStatus = await useAppInfo(`${defaultHoister}/status.json`);
   if (newStatus.data.value) {
-    hostUpdate(newStatus.data.value.url, newStatus.data.value);
+    hostUpdate(defaultHoister, newStatus.data.value);
   }
 
   if (server && defaultHoister === staticDefaultServer) {
@@ -61,7 +62,7 @@ const formData = reactive({
 const hostUpdate = (url?: string, info?: AppInfo) => {
   isModalVisible.value = false;
   trustServer.shown = false;
-
+  
   if (url && info) {
     updateInfo(info);
     user.updateApi(normalizeUrl(info.url));

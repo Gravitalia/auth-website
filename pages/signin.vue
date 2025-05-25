@@ -30,7 +30,7 @@ const checkAndUpdateServer = async () => {
 
   const newStatus = await useAppInfo(`${defaultHoister}/status.json`);
   if (newStatus.data.value) {
-    hostUpdate(newStatus.data.value.url, newStatus.data.value);
+    hostUpdate(defaultHoister, newStatus.data.value);
   }
 
   if (server && defaultHoister === staticDefaultServer) {
