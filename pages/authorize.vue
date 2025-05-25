@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { CheckCircleIcon } from "@heroicons/vue/24/outline";
 import Button from "~/components/form/Button.vue";
 import useKeys from "~/composables/keysManager";
+import Card from "~/components/form/Card.vue";
 
 definePageMeta({
   middleware: "auth",
@@ -97,7 +99,7 @@ const login = async () => {
     }"
   >
     <form @submit.prevent="login" class="space-y-6">
-      <FormCard class="w-80 lg:w-96" :title="$t('authorize.title', { host })">
+      <Card class="w-80 lg:w-96" :title="$t('authorize.title', { host })">
         <div v-show="errorState.redirect">
           <p class="flex text-sm text-zinc-600 dark:text-zinc-300">
             {{ $t("authorize.error.redirect") }}
@@ -116,25 +118,11 @@ const login = async () => {
         <div v-show="step === 2">
           <p class="text-sm">{{ $t("authorize.access.title", { host }) }}</p>
           <p class="flex text-sm text-zinc-600 dark:text-zinc-300">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-5 mr-1.5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-
+            <CheckCircleIcon class="size-5 mr-1.5" />
             {{ $t("authorize.access.username") }}
           </p>
         </div>
-      </FormCard>
+      </Card>
 
       <Button v-show="step !== 0" class="w-80 lg:w-96" type="submit">{{
         $t("authentification.signin")

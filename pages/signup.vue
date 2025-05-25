@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ArrowTopRightOnSquareIcon } from "@heroicons/vue/24/outline";
 import HostModal from "~/components/authentification/HostModal.vue";
 import TrustModal from "~/components/authentification/TrustModal.vue";
 import Button from "~/components/form/Button.vue";
@@ -24,7 +25,7 @@ const { t } = useI18n();
 
 const checkAndUpdateServer = async () => {
   const server = useRoute().query?.server?.toString();
-  console.log(server)
+  console.log(server);
   const defaultHoister = defaultServer(server);
 
   const newStatus = await useAppInfo(`${defaultHoister}/status.json`);
@@ -62,7 +63,7 @@ const formData = reactive({
 const hostUpdate = (url?: string, info?: AppInfo) => {
   isModalVisible.value = false;
   trustServer.shown = false;
-  
+
   if (url && info) {
     updateInfo(info);
     user.updateApi(normalizeUrl(info.address));
@@ -273,20 +274,7 @@ useEnterKey(create);
           v-if="data?.terms_of_service"
           :to="data?.terms_of_service"
           >{{ $t("authentification.tos") }}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="ml-0.5 size-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-            />
-          </svg>
+          <ArrowTopRightOnSquareIcon class="ml-0.5 size-4" />
         </NuxtLink>
         <NuxtLink
           tabindex="0"
@@ -296,20 +284,7 @@ useEnterKey(create);
           v-if="data?.privacy_policy"
           :to="data?.privacy_policy"
           >{{ $t("authentification.privacy") }}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="ml-0.5 size-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-            />
-          </svg>
+          <ArrowTopRightOnSquareIcon class="ml-0.5 size-4" />
         </NuxtLink>
 
         <p class="text-sm mt-4">
