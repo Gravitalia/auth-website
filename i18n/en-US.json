@@ -79,6 +79,17 @@
     "empty": "Create your first key pair to begin to connect!"
   },
 
+  "account": {
+    "download": {
+      "title": "Data of my account",
+      "button": "Download data linked to my account"
+    },
+    "delete": {
+      "title": "Delete my account",
+      "description": "You will delete your account. THIS ACTION IS IRREVERSIBLE! Enter your password to proceed."
+    }
+  },
+
   "navbar": {
     "profile": "Profile",
     "keys": "Keys",
