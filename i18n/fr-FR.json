@@ -79,6 +79,17 @@
     "empty": "Créez votre première paire de clé pour commencer à vous connecter !"
   },
 
+  "account": {
+    "download": {
+      "title": "Données de mon compte",
+      "button": "Télécharger les données associées à mon compte"
+    },
+    "delete": {
+      "title": "Supprimer mon compte",
+      "description": "Vous allez supprimer votre compte. CETTE ACTION EST IRRÉVERSIBLE ! Entrez votre mot de passe pour procéder."
+    }
+  },
+
   "navbar": {
     "profile": "Profil",
     "keys": "Clés",
