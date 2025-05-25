@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { ChevronRightIcon } from "@heroicons/vue/24/outline";
 import Input from "~/components/form/Input.vue";
 import TotpModal from "~/components/profile/TotpModal.vue";
+import Card from "~/components/form/Card.vue";
+import ButtonInvisible from "~/components/form/ButtonInvisible.vue";
 import type { ServerErrorClass } from "~/types";
 
 definePageMeta({
@@ -79,11 +82,11 @@ const save = () => {
   <TotpModal @close="modals.totp = false" :visible="modals.totp" />
 
   <div class="flex flex-col justify-center items-center mt-16 gap-4">
-    <FormButtonInvisible @click="save" class="w-80 md:w-1/2 lg:w-1/3">{{
+    <ButtonInvisible @click="save" class="w-80 md:w-1/2 lg:w-1/3">{{
       $t("profile.save")
-    }}</FormButtonInvisible>
+    }}</ButtonInvisible>
 
-    <FormCard :title="$t('profile.my_profile')" class="md:w-1/2 lg:w-1/3">
+    <Card :title="$t('profile.my_profile')" class="md:w-1/2 lg:w-1/3">
       <div>
         <label class="text-sm">
           {{ $t("authentification.id") }}
@@ -100,9 +103,9 @@ const save = () => {
           class="w-full"
         />
       </div>
-    </FormCard>
+    </Card>
 
-    <FormCard :title="$t('profile.contact_info')" class="md:w-1/2 lg:w-1/3">
+    <Card :title="$t('profile.contact_info')" class="md:w-1/2 lg:w-1/3">
       <div>
         <label class="text-sm">
           {{ $t("authentification.email") }}
@@ -133,50 +136,24 @@ const save = () => {
       <p class="mt-4 text-sm text-zinc-600 dark:text-zinc-300">
         {{ $t("profile.password_required") }}
       </p>
-    </FormCard>
+    </Card>
 
-    <FormCard :title="$t('profile.security')" class="md:w-1/2 lg:w-1/3">
-      <FormButtonInvisible
+    <Card :title="$t('profile.security')" class="md:w-1/2 lg:w-1/3">
+      <ButtonInvisible
         @click="modals.password = true"
         class="w-full px-4 flex justify-between"
       >
         <p>{{ $t("profile.password.title") }}</p>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="mt-0.5 size-4"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m8.25 4.5 7.5 7.5-7.5 7.5"
-          />
-        </svg>
-      </FormButtonInvisible>
+        <ChevronRightIcon class="mt-0.5 size-4" />
+      </ButtonInvisible>
 
-      <FormButtonInvisible
+      <ButtonInvisible
         @click="modals.totp = true"
         class="mt-4 w-full px-4 flex justify-between"
       >
         <p>{{ $t("profile.totp.button") }}</p>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="mt-0.5 size-4"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m8.25 4.5 7.5 7.5-7.5 7.5"
-          />
-        </svg>
-      </FormButtonInvisible>
-    </FormCard>
+        <ChevronRightIcon class="mt-0.5 size-4" />
+      </ButtonInvisible>
+    </Card>
   </div>
 </template>

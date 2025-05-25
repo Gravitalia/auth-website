@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { XMarkIcon } from "@heroicons/vue/24/outline";
+
 defineProps({
   title: String,
   description: String,
@@ -25,20 +27,7 @@ defineProps({
         type="button"
         class="absolute right-2 top-2 rounded-md p-1 opacity-0 transition-opacity focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="size-4"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 18 18 6M6 6l12 12"
-          />
-        </svg>
+        <XMarkIcon class="size-4" />
       </button>
     </div>
   </div>

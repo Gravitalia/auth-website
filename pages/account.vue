@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ChevronRightIcon } from "@heroicons/vue/24/outline";
 import DeleteModal from "~/components/profile/DeleteModal.vue";
 import Card from "~/components/form/Card.vue";
 import ButtonInvisible from "~/components/form/ButtonInvisible.vue";
@@ -45,20 +46,7 @@ const download = () => {
         class="w-full px-4 flex justify-between"
       >
         <p>{{ $t("account.download.button") }}</p>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="mt-0.5 size-4"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m8.25 4.5 7.5 7.5-7.5 7.5"
-          />
-        </svg>
+        <ChevronRightIcon class="mt-0.5 size-4" />
       </ButtonInvisible>
     </Card>
 
@@ -68,20 +56,7 @@ const download = () => {
         class="w-full px-4 flex justify-between"
       >
         <p>{{ $t("account.delete.title") }}</p>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="mt-0.5 size-4"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m8.25 4.5 7.5 7.5-7.5 7.5"
-          />
-        </svg>
+        <ChevronRightIcon class="mt-0.5 size-4" />
       </ButtonInvisible>
     </Card>
   </div>
