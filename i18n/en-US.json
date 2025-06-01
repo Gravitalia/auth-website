@@ -65,7 +65,12 @@
       "button": "Two-factor authentication (TOTP)",
       "title": "Set up 2FA",
       "description": "is the key to write on application.",
-      "code": "Code"
+      "code": "Code",
+      "scan": {
+        "title": "Scan the QR Code",
+        "description": "Scan the image on the left using your phone's camera."
+      },
+      "manual": "Manual input"
     },
     "password_required": "Password is required to update email address."
   },
