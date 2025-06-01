@@ -3,6 +3,7 @@ import { useTotp } from "~/composables/useTotp";
 import Input from "../form/Input.vue";
 import { toast } from "~/composables/useToast";
 import type { ServerErrorClass } from "~/types";
+import QRCode from "~/components/qrcode/QRCode.vue";
 
 const user = useUsers();
 const { generate } = useTotp();
@@ -11,6 +12,7 @@ const data = reactive({
   code: "",
   password: "",
 });
+const dataUri = ref("");
 
 defineProps({
   visible: Boolean,
@@ -38,6 +40,9 @@ const finish = () => {
 
 onMounted(() => {
   data.secret = generate();
+  dataUri.value = encodeURI(
+    `otpauth://totp/${user.userData.id}?secret=${data.secret}&issuer=Gravitalia`,
+  );
 });
 </script>
 
@@ -48,10 +53,25 @@ onMounted(() => {
     :title="$t('profile.totp.title')"
     :visible
   >
-    <p>
-      <span class="font-bold">{{ data.secret }}</span>
-      {{ $t("profile.totp.description") }}
-    </p>
+    <div class="md:flex">
+      <QRCode class="hidden md:block" :data-uri />
+      <div class="mt-2">
+        <div class="hidden md:block">
+          <h3 class="font-semibold">{{ $t("profile.totp.scan.title") }}</h3>
+          <p class="text-sm max-w-sm">
+            {{ $t("profile.totp.scan.description") }}
+          </p>
+        </div>
+
+        <br />
+
+        <h3 class="font-semibold">{{ $t("profile.totp.manual") }}</h3>
+        <p class="text-sm">
+          {{ data.secret }}
+        </p>
+      </div>
+    </div>
+
     <Input
       v-model="data.code"
       type="text"
