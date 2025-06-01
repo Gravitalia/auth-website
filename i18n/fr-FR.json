@@ -65,7 +65,12 @@
       "button": "Authentification à deux facteurs (TOTP)",
       "title": "Mettre en place l'A2F",
       "description": "est la clé à entrer sur votre application.",
-      "code": "Code"
+      "code": "Code",
+      "scan": {
+        "title": "Scanner le QR Code",
+        "description": "Scanne l'image à gauche avec l'appareil photo de ton téléphone."
+      },
+      "manual": "Saisie manuelle"
     },
     "password_required": "Le mot de passe est requis pour modifier l'adresse e-mail."
   },
