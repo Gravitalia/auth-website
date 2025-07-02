@@ -1,0 +1,10 @@
+name = "account"
+main = "./.output/server/index.mjs"
+compatibility_date = "2022-07-12"
+
+[assets]
+binding = "ASSETS"
+directory = "./.output/public/"
+
+[observability]
+enabled = false
