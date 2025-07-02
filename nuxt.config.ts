@@ -16,6 +16,7 @@ export default defineNuxtConfig({
         classSuffix: "",
       },
     ],
+    "@pinia/nuxt",
     "@nuxt/image",
     //...isDevelopment ? [] : ["nuxt-security"],
     "@nuxtjs/tailwindcss",
@@ -84,6 +85,12 @@ export default defineNuxtConfig({
         { name: "twitter:site", content: "@gravitalianews" },
         { name: "twitter:card", content: "summary_large_image" },
       ],
+    },
+  },
+
+  runtimeConfig: {
+    public: {
+      defaultServer: isDevelopment ? "localhost:3000" : "https://account.gravitalia.com",
     },
   },
 
