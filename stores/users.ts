@@ -127,10 +127,14 @@ export const useUsers = defineStore("users", {
 
     async delete(password: string) {
       const route = `${this.protocol}//${this.host}/users/@me`;
-      return await this._req(route, { password }, {
-        method: "delete",
-        authorization: this._token,
-      });
+      return await this._req(
+        route,
+        { password },
+        {
+          method: "delete",
+          authorization: this._token,
+        },
+      );
     },
 
     async _req(

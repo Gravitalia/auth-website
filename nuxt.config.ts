@@ -3,7 +3,13 @@ import { isDevelopment } from "std-env";
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
 
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
 
   modules: [
     "@nuxt/eslint",
@@ -16,12 +22,10 @@ export default defineNuxtConfig({
         classSuffix: "",
       },
     ],
-    "@pinia/nuxt",
-    "@nuxt/image",
-    //...isDevelopment ? [] : ["nuxt-security"],
+    "@nuxt/image", //...isDevelopment ? [] : ["nuxt-security"],
     "@nuxtjs/tailwindcss",
+    "@pinia/nuxt",
   ],
-  css: [],
   ssr: true,
   components: true,
   sourcemap: isDevelopment,
@@ -31,10 +35,6 @@ export default defineNuxtConfig({
     strategy: "no_prefix",
     lazy: true,
     langDir: ".",
-    compilation: {
-      strictMessage: false,
-      escapeHtml: true,
-    },
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: "locale",
@@ -64,10 +64,6 @@ export default defineNuxtConfig({
     head: {
       charset: "utf-8",
       viewport: "width=device-width,initial-scale=1",
-      title: "Gravitalia Account",
-      htmlAttrs: {
-        lang: "en",
-      },
       bodyAttrs: {
         class: "dark:bg-zinc-950 dark:text-white font-sans",
       },
@@ -76,14 +72,16 @@ export default defineNuxtConfig({
         { rel: "apple-touch-icon", href: "/favicon.webp" },
       ],
       meta: [
-        { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+        {
+          property: "apple-mobile-web-app-status-bar-style",
+          content: "default",
+        },
         { property: "og:type", content: "website" },
         { property: "og:site_name", content: "Gravitalia Account" },
         { property: "og:title", content: "Gravitalia Account" },
         { property: "og:image", content: "/favicon.webp" },
-        { property: "og:site_name", content: "Gravitalia Account" },
-        { name: "twitter:site", content: "@gravitalianews" },
-        { name: "twitter:card", content: "summary_large_image" },
+        { property: "twitter:site", content: "@gravitalianews" },
+        { property: "twitter:card", content: "summary_large_image" },
       ],
     },
   },

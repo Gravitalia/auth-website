@@ -21,8 +21,7 @@ export function useTrustedServer() {
       let { protocol, host } = normalizeUrl(suggestedServer);
       suggestedServer = host;
 
-      if (servers.value.find((u) => u === suggestedServer))
-        return suggestedServer;
+      if (servers.value.find((u) => u === suggestedServer)) return host;
       else return useRuntimeConfig().public.defaultServer;
     } else return useRuntimeConfig().public.defaultServer;
   };
