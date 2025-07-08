@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
   ],
-  ssr: true, // could be set to false.
+  ssr: false, // could be set to true.
   components: true,
   sourcemap: isDevelopment,
 
