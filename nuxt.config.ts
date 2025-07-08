@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
   ],
-  ssr: false, // could be set to true.
+  ssr: true, // could be set to false.
   components: true,
   sourcemap: isDevelopment,
 
@@ -120,7 +120,7 @@ export default defineNuxtConfig({
         "frame-src": ["'none'"],
         "script-src-attr": ["'none'"],
         "object-src": ["'none'"],
-        "connect-src": ["'self'", "https:", "localhost:*"],
+        "connect-src": ["'self'", "https:", "localhost:"],
         "img-src": ["'self'", "https:", "data:", "blob:"],
         "media-src": ["'self'", "https:"],
         "script-src": ["'self'", "'unsafe-inline'", "'strict-dynamic'", "'nonce-{{nonce}}'"],
