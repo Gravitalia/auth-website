@@ -22,11 +22,11 @@ export default defineNuxtConfig({
         classSuffix: "",
       },
     ],
-    "@nuxt/image", //...isDevelopment ? [] : ["nuxt-security"],
+    "@nuxt/image", ...isDevelopment ? [] : ["nuxt-security"],
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
   ],
-  ssr: true,
+  ssr: false, // could be set to true.
   components: true,
   sourcemap: isDevelopment,
 
@@ -88,41 +88,64 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      defaultServer: isDevelopment ? "localhost:3000" : "https://account.gravitalia.com",
+      defaultServer: isDevelopment ? "localhost:3000" : "localhost:8787",
     },
   },
 
   nitro: {
-    preset: isDevelopment ? "" : "cloudflare_module",
+    preset: isDevelopment ? "node-server" : "cloudflare_module",
     prerender: {
       autoSubfolderIndex: !isDevelopment,
     },
   },
 
-  /*security: {
+  sri: true,
+  security: {
     headers: {
-      crossOriginEmbedderPolicy: false,
+      crossOriginEmbedderPolicy: "credentialless",
+      crossOriginOpenerPolicy: "same-origin",
+      crossOriginResourcePolicy: "same-site",
+      originAgentCluster: "?1",
+      referrerPolicy: "no-referrer",
+      strictTransportSecurity: {
+        maxAge: 63072000, // 2 years
+        includeSubdomains: true,
+        preload: true,
+      },
+      xFrameOptions: false, // managed by CSP.
       contentSecurityPolicy: {
         "default-src": ["'self'"],
-        "base-uri": ["'self'"],
-        "connect-src": ["'self'", "https:"],
-        "font-src": ["'self'"],
         "form-action": ["'none'"],
         "frame-ancestors": ["'none'"],
-        "frame-src": ["https:"],
-        "img-src": ["'self'", "https:", "data:", "blob:"],
-        "manifest-src": ["'self'"],
-        "media-src": ["'self'", "https:"],
-        "object-src": ["'none'"],
-        "script-src": ["'self'", "'unsafe-inline'"],
+        "frame-src": ["'none'"],
         "script-src-attr": ["'none'"],
-        "style-src": ["'self'", "'unsafe-inline'"],
-        "upgrade-insecure-requests": true,
+        "object-src": ["'none'"],
+        "connect-src": ["'self'", "https:", "localhost:*"],
+        "img-src": ["'self'", "https:", "data:", "blob:"],
+        "media-src": ["'self'", "https:"],
+        "script-src": ["'self'", "'unsafe-inline'", "'strict-dynamic'", "'nonce-{{nonce}}'"],
+        "style-src": ["'self'", "'unsafe-inline'"], // remove 'unsafe-inline' if tailwind not inline.
+        "upgrade-insecure-requests": false,
       },
       permissionsPolicy: {
-        fullscreen: "*",
+        camera: [],
+        geolocation: [],
+        microphone: [],
       },
     },
+    corsHandler: {
+      origin: "*",
+      methods: "OPTIONS, GET",
+      allowHeaders: "Authorization, Content-Type, Accept",
+      credentials: true,
+      maxAge: "86400",
+      preflight: {
+        statusCode: 200,
+      },
+    },
+    allowedMethodsRestricter: {
+      methods: ["OPTIONS", "GET"],
+    },
     rateLimiter: false,
-  },*/
+  },
 });

@@ -1,12 +1,11 @@
 {
-  "name": "Example of status",
-  "url": "https://auth.gravitalia.com/",
+  "name": "Gravitalia",
+  "url": "http://localhost:8080",
   "favicon": "https://www.gravitalia.com/favicon.webp",
   "terms_of_service": "https://account.gravitalia.com/terms",
   "privacy_policy": "https://account.gravitalia.com/privacy",
-
   "version": 1,
-  "invite_only": true,
-
-  "background": "https://cdn.gravitalia.com/incredible/image.png"
+  "invite_only": false,
+  "background": "",
+  "support": "mailto:support@gravitalia.com"
 }
