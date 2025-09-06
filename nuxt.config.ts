@@ -1,7 +1,7 @@
 import { isDevelopment } from "std-env";
 
 export default defineNuxtConfig({
-  compatibilityDate: "2024-04-03",
+  compatibilityDate: "2025-07-15",
 
   devtools: {
     enabled: true,
@@ -26,14 +26,14 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
   ],
-  ssr: false, // could be set to true.
+
+  ssr: false,
   components: true,
   sourcemap: isDevelopment,
 
   i18n: {
     defaultLocale: "en",
     strategy: "no_prefix",
-    lazy: true,
     langDir: ".",
     detectBrowserLanguage: {
       useCookie: true,
@@ -112,9 +112,10 @@ export default defineNuxtConfig({
         includeSubdomains: true,
         preload: true,
       },
-      xFrameOptions: false, // managed by CSP.
+      xFrameOptions: "DENY", // also managed by CSP.
       contentSecurityPolicy: {
         "default-src": ["'self'"],
+        "font-src": ["'none'"],
         "form-action": ["'none'"],
         "frame-ancestors": ["'none'"],
         "frame-src": ["'none'"],
@@ -134,9 +135,9 @@ export default defineNuxtConfig({
       },
     },
     corsHandler: {
-      origin: "*",
-      methods: "OPTIONS, GET",
-      allowHeaders: "Authorization, Content-Type, Accept",
+      origin: "account.gravitalia.com",
+      methods: ["OPTIONS", "GET"],
+      allowHeaders: ["Authorization", "Content-Type", "Accept"],
       credentials: true,
       maxAge: "86400",
       preflight: {

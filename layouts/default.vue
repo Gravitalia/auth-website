@@ -1,15 +1,17 @@
 <script setup>
-const head = useLocaleHead({
-  lang: true,
-  dir: true,
-});
+const route = useRoute();
+const { t } = useI18n();
+const head = useLocaleHead();
+const title = computed(() =>
+	route.meta.title ? t(route.meta.title) : t("title", { name: "Gravitalia" }),
+);
 </script>
 
 <template>
   <div>
     <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
       <Head>
-        <Title>{{ $t("title", { name: "Gravitalia" }) }}</Title>
+        <Title>{{ title }}</Title>
         <template v-for="link in head.link" :key="link.id">
           <Link
             :id="link.id"
