@@ -99,8 +99,20 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    "/**": {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Expires": "0",
+      },
+    },
+  },
+
   sri: true,
   security: {
+    strict: true,
+    hidePoweredBy: true,
+    removeLoggers: true,
     headers: {
       crossOriginEmbedderPolicy: "credentialless",
       crossOriginOpenerPolicy: "same-origin",
@@ -114,28 +126,26 @@ export default defineNuxtConfig({
       },
       xFrameOptions: "DENY", // also managed by CSP.
       contentSecurityPolicy: {
-        "default-src": ["'self'"],
         "font-src": ["'none'"],
         "form-action": ["'none'"],
         "frame-ancestors": ["'none'"],
         "frame-src": ["'none'"],
-        "script-src-attr": ["'none'"],
-        "object-src": ["'none'"],
+        "worker-src": ["none"],
         "connect-src": ["'self'", "https:", "localhost:"],
         "img-src": ["'self'", "https:", "data:", "blob:"],
         "media-src": ["'self'", "https:"],
-        "script-src": ["'self'", "'unsafe-inline'", "'strict-dynamic'", "'nonce-{{nonce}}'"],
-        "style-src": ["'self'", "'unsafe-inline'"], // remove 'unsafe-inline' if tailwind not inline.
+        "style-src": ["'self'", "'nonce-{{nonce}}'"],
         "upgrade-insecure-requests": false,
       },
       permissionsPolicy: {
         camera: [],
         geolocation: [],
         microphone: [],
+        "sync-xhr": [],
       },
     },
     corsHandler: {
-      origin: "account.gravitalia.com",
+      origin: "${serverUrl}",
       methods: ["OPTIONS", "GET"],
       allowHeaders: ["Authorization", "Content-Type", "Accept"],
       credentials: true,
