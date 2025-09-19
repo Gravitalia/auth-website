@@ -145,10 +145,9 @@ export default defineNuxtConfig({
       },
     },
     corsHandler: {
-      origin: "${serverUrl}",
       methods: ["OPTIONS", "GET"],
       allowHeaders: ["Authorization", "Content-Type", "Accept"],
-      credentials: true,
+      credentials: false,
       maxAge: "86400",
       preflight: {
         statusCode: 200,
