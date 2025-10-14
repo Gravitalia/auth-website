@@ -5,7 +5,7 @@
   "terms_of_service": "https://account.gravitalia.com/terms",
   "privacy_policy": "https://account.gravitalia.com/privacy",
   "version": 1,
-  "invite_only": false,
+  "invite_only": true,
   "background": "",
   "support": "mailto:support@gravitalia.com"
 }

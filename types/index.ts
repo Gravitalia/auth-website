@@ -1,6 +1,6 @@
 export interface AppInfo {
   name: string;
-  address: string;
+  url: string;
   favicon?: string;
   terms_of_service?: string;
   privacy_policy?: string;
