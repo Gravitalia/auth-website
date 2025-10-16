@@ -66,7 +66,7 @@ const hostUpdate = (url?: string, info?: AppInfo) => {
 
 	if (url && info) {
 		updateInfo(info);
-		user.updateApi(normalizeUrl(info.address));
+		user.updateApi(normalizeUrl(info.url));
 		addServer(url);
 		// Add server update on user history.
 		useRouter().push({ query: { server: url } });
@@ -179,7 +179,7 @@ useEnterKey(create);
 				</p>
 				<ButtonInvisible @click="isModalVisible = true" class="mt-2 w-full">
 					{{
-						data?.address === useRuntimeConfig().public.defaultServer
+						data?.url === useRuntimeConfig().public.defaultServer
 							? $t("default")
 							: data?.name || $t("no_name")
 					}}

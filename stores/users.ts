@@ -90,8 +90,12 @@ export const useUsers = defineStore("users", {
 		async checkInviteCode(invite: string): Promise<boolean | undefined> {
 			const route = `${this.protocol}//${this.host}/create`;
 			const payload = { invite };
-			const res: ServerError = await this._req(route, payload);
-			return res.errors?.some((e) => e.field === "invite");
+			try {
+				const res: ServerError = await this._req(route, payload)
+				return res.errors?.some((e) => e.field === "invite");
+			} catch (_) {
+				return false;
+			}
 		},
 
 		logout(): void {
