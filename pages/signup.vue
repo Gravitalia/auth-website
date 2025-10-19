@@ -10,6 +10,7 @@ import useEnterKey from "~/composables/useEnterKey";
 import type { AppInfo } from "~/types";
 import { ServerErrorClass } from "~/types";
 import { useUsers } from "~/stores/users";
+import { useRedirect } from "~/composables/useRedirect";
 
 // Load custom server manager.
 const staticDefaultServer = useRuntimeConfig().public.defaultServer;
@@ -125,7 +126,7 @@ const create = async () => {
 			formData.invite_code,
 		)
 		.then(async () => {
-			await navigateTo("/");
+			await navigateTo(useRedirect("/"));
 		})
 		.catch((err: ServerErrorClass) => {
 			if (err.json.errors?.find((e) => e.field === "invite")) {

@@ -11,6 +11,7 @@ import type { AppInfo } from "~/types";
 import { ServerErrorClass } from "~/types";
 import { useUsers } from "~/stores/users";
 import { toast } from "~/composables/useToast";
+import { useRedirect } from "~/composables/useRedirect";
 
 // Load custom server manager.
 const staticDefaultServer = useRuntimeConfig().public.defaultServer;
@@ -64,7 +65,7 @@ const hostUpdate = (url?: string, info?: AppInfo) => {
 
   if (url && info) {
     updateInfo(info);
-    user.updateApi(normalizeUrl(info.address));
+    user.updateApi(normalizeUrl(info.url));
     addServer(url);
     // Add server update on user history.
     useRouter().push({ query: { server: url } });
@@ -100,7 +101,7 @@ const login = (totpCode?: string) => {
       totpCode || credentials.totpCode,
     )
     .then(async () => {
-      await navigateTo("/");
+      await navigateTo(useRedirect("/"));
     })
     .catch((err: ServerErrorClass) => {
       try {
@@ -157,7 +158,7 @@ useEnterKey(login);
           </p>
           <ButtonInvisible @click="isModalVisible = true" class="mt-2 w-full">
             {{
-              data?.address === useRuntimeConfig().public.defaultServer
+              data?.url === useRuntimeConfig().public.defaultServer
                 ? $t("default")
                 : data?.name || $t("no_name")
             }}
