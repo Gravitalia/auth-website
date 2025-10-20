@@ -1,123 +1,123 @@
 {
-  "title": "Compte {name}",
-  "description": "Un seul pont pour gérer ses données en toute confidentialité.",
+	"title": "Compte {name}",
+	"description": "Un seul pont pour gérer ses données en toute confidentialité.",
 
-  "modal": {
-    "done": "Terminé"
-  },
+	"modal": {
+		"done": "Terminé"
+	},
 
-  "error": {
-    "form": {
-      "title": "Erreur dans le formulaire",
-      "email": "L'adresse courriel est invalide.",
-      "password": "Le mot de passe est invalide.",
-      "invite_code": "Entrez une invitation valide.",
-      "id": "L'identifiant est déjà utilisé."
-    },
-    "internal_server_error": "L'hébergeur sélectionné est indisponible"
-  },
+	"error": {
+		"form": {
+			"title": "Erreur dans le formulaire",
+			"email": "L'adresse courriel est invalide.",
+			"password": "Le mot de passe est invalide.",
+			"invite_code": "Entrez une invitation valide.",
+			"id": "L'identifiant est déjà utilisé."
+		},
+		"internal_server_error": "L'hébergeur sélectionné est indisponible"
+	},
 
-  "authentification": {
-    "signin": "Se connecter",
-    "server_addr": "Adresse du serveur",
-    "host_provider": "Hébergeur",
-    "select_host_provider": "Sélectionnez le service qui héberge vos données.",
-    "email": "Adresse e-mail",
-    "password": "Mot de passe",
-    "forgot": "(Oublié ?)",
-    "forgot_mfa": "Avez-vous perdu votre clé ?",
-    "create_account": "Pas de compte ? Créez-en un !",
-    "mfa": "Entrez votre code à deux facteurs.",
-    "trust": {
-      "title": "Ajouter un serveur de confiance",
-      "description": "Souhaitez-vous ajouter {server} à vos serveurs de confiance ?\n(Un serveur de confiance est un serveur qui pourra sauvegarder vos données (e-mail, mot de passe, etc.) sans redemander d'autorisation postérieure.)",
-      "trust": "Faire confiance",
-      "use_default": "Serveur par défaut"
-    },
+	"authentification": {
+		"signin": "Se connecter",
+		"server_addr": "Adresse du serveur",
+		"host_provider": "Hébergeur",
+		"select_host_provider": "Sélectionnez le service qui héberge vos données.",
+		"email": "Adresse e-mail",
+		"password": "Mot de passe",
+		"forgot": "(Oublié ?)",
+		"forgot_mfa": "Avez-vous perdu votre clé ?",
+		"create_account": "Pas de compte ? Créez-en un !",
+		"mfa": "Entrez votre code à deux facteurs.",
+		"trust": {
+			"title": "Ajouter un serveur de confiance",
+			"description": "Souhaitez-vous ajouter {server} à vos serveurs de confiance ?\n(Un serveur de confiance est un serveur qui pourra sauvegarder vos données (e-mail, mot de passe, etc.) sans redemander d'autorisation postérieure.)",
+			"trust": "Faire confiance",
+			"use_default": "Serveur par défaut"
+		},
 
-    "login_account": "Déjà un compte ? Connectez-vous !",
-    "create": "Créer mon compte",
-    "invite_only": "Ce serveur requiert une invitation. Le code d'invitation est vérifié lors de l'inscription.",
-    "invite_code": "Code d'invitation",
-    "id": "Nom d'utilisateur",
-    "tos": "Conditions générales d'utilisation",
-    "privacy": "Politique de confidentialité",
-    "terms": "En vous inscrivant, vous acceptez les conditions générales d'utilisation et la politique de confidentialité du serveur."
-  },
+		"login_account": "Déjà un compte ? Connectez-vous !",
+		"create": "Créer mon compte",
+		"invite_only": "Ce serveur requiert une invitation. Le code d'invitation est vérifié lors de l'inscription.",
+		"invite_code": "Code d'invitation",
+		"id": "Nom d'utilisateur",
+		"tos": "Conditions générales d'utilisation",
+		"privacy": "Politique de confidentialité",
+		"terms": "En vous inscrivant, vous acceptez les conditions générales d'utilisation et la politique de confidentialité du serveur."
+	},
 
-  "profile": {
-    "save": "Sauvegarder",
-    "my_profile": "Mon profil",
-    "contact_info": "Information de contact",
-    "security": "Securité",
-    "toast": {
-      "title": "Compte",
-      "profile": "Votre compte a été modifié.",
-      "password": "Votre mot de passe a été modifié.",
-      "totp": "Authentification à deux facteurs activée sur le compte !"
-    },
-    "password": {
-      "title": "Modifier le mot de passe",
-      "new": "Nouveau mot de passe",
-      "old": "Ancien mot de passe"
-    },
-    "totp": {
-      "button": "Authentification à deux facteurs (TOTP)",
-      "title": "Mettre en place l'A2F",
-      "description": "est la clé à entrer sur votre application.",
-      "code": "Code",
-      "scan": {
-        "title": "Scanner le QR Code",
-        "description": "Scanne l'image à gauche avec l'appareil photo de ton téléphone."
-      },
-      "manual": "Saisie manuelle"
-    },
-    "password_required": "Le mot de passe est requis pour modifier l'adresse e-mail."
-  },
+	"profile": {
+		"save": "Sauvegarder",
+		"my_profile": "Mon profil",
+		"contact_info": "Information de contact",
+		"security": "Securité",
+		"toast": {
+			"title": "Compte",
+			"profile": "Votre compte a été modifié.",
+			"password": "Votre mot de passe a été modifié.",
+			"totp": "Authentification à deux facteurs activée sur le compte !"
+		},
+		"password": {
+			"title": "Modifier le mot de passe",
+			"new": "Nouveau mot de passe",
+			"old": "Ancien mot de passe"
+		},
+		"totp": {
+			"button": "Authentification à deux facteurs (TOTP)",
+			"title": "Mettre en place l'A2F",
+			"description": "est la clé à entrer sur votre application.",
+			"code": "Code",
+			"scan": {
+				"title": "Scanner le QR Code",
+				"description": "Scanne l'image à gauche avec l'appareil photo de ton téléphone."
+			},
+			"manual": "Saisie manuelle"
+		},
+		"password_required": "Le mot de passe est requis pour modifier l'adresse e-mail."
+	},
 
-  "keys": {
-    "generate": "Générer une clé",
-    "title": "Clés publiques sur le serveur",
-    "description": "Clé {id} du {date}",
-    "download": "Télécharger la clé publique",
-    "delete": "Supprimer",
-    "empty": "Créez votre première paire de clé pour commencer à vous connecter !"
-  },
+	"keys": {
+		"generate": "Générer une clé",
+		"title": "Clés publiques sur le serveur",
+		"description": "Clé {id} du {date}",
+		"download": "Télécharger la clé publique",
+		"delete": "Supprimer",
+		"empty": "Créez votre première paire de clé pour commencer à vous connecter !"
+	},
 
-  "account": {
-    "download": {
-      "title": "Données de mon compte",
-      "button": "Télécharger les données associées à mon compte"
-    },
-    "delete": {
-      "title": "Supprimer mon compte",
-      "description": "Vous allez supprimer votre compte. CETTE ACTION EST IRRÉVERSIBLE ! Entrez votre mot de passe pour procéder."
-    }
-  },
+	"account": {
+		"download": {
+			"title": "Données de mon compte",
+			"button": "Télécharger les données associées à mon compte"
+		},
+		"delete": {
+			"title": "Supprimer mon compte",
+			"description": "Vous allez supprimer votre compte. CETTE ACTION EST IRRÉVERSIBLE ! Entrez votre mot de passe pour procéder."
+		}
+	},
 
-  "navbar": {
-    "profile": "Profil",
-    "keys": "Clés",
-    "account": "Compte",
-    "logout": "Se déconnecter"
-  },
+	"navbar": {
+		"profile": "Profil",
+		"keys": "Clés",
+		"account": "Compte",
+		"logout": "Se déconnecter"
+	},
 
-  "authorize": {
-    "title": "Se connecter à {host}",
-    "create_key": "Une paire de clés cryptographiques, comprenant une clé privée sécurisée localement et une clé publique, est requise pour l'authentification. Veuillez suivre les instructions de votre navigateur ou cliquer sur le bouton ci-dessous pour la générer. Ce mécanisme permet une connexion décentralisée.",
-    "access": {
-      "title": "Ceci autorisera {host} à :",
-      "username": "Accéder à votre nom d'utilisateur"
-    },
-    "error": {
-      "redirect": "Oups... il manque le champ \"redirect\" dans la query.",
-      "challenge": "Ajoutez un champ \"challenge\" avec un code WebAuthN encodé en base64 dans la query."
-    }
-  },
+	"authorize": {
+		"title": "Se connecter à {host}",
+		"create_key": "Une paire de clés cryptographiques, comprenant une clé privée sécurisée localement et une clé publique, est requise pour l'authentification. Veuillez suivre les instructions de votre navigateur ou cliquer sur le bouton ci-dessous pour la générer. Ce mécanisme permet une connexion décentralisée.",
+		"access": {
+			"title": "Ceci autorisera {host} à :",
+			"username": "Accéder à votre nom d'utilisateur"
+		},
+		"error": {
+			"redirect": "Oups... il manque le champ \"redirect\" dans la query.",
+			"challenge": "Ajoutez un champ \"challenge\" avec un code WebAuthN encodé en base64 dans la query."
+		}
+	},
 
-  "or": "ou",
-  "default": "Par défaut",
-  "recommended": "(recommandé)",
-  "no_name": "Aucun nom",
-  "next": "Suivant"
+	"or": "ou",
+	"default": "Par défaut",
+	"recommended": "(recommandé)",
+	"no_name": "Aucun nom",
+	"next": "Suivant"
 }

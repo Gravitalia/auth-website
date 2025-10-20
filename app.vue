@@ -2,17 +2,17 @@
 const route = useRoute();
 
 if (import.meta.server) {
-  const url = useRequestURL();
+	const url = useRequestURL();
 
-  useHead({
-    meta: [{ property: "og:url", content: `${url.origin}${route.path}` }],
-  });
+	useHead({
+		meta: [{ property: "og:url", content: `${url.origin}${route.path}` }],
+	});
 }
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage />
-    <ToastContainer />
-  </NuxtLayout>
+	<NuxtLayout>
+		<NuxtPage />
+		<ToastContainer />
+	</NuxtLayout>
 </template>

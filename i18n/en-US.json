@@ -1,123 +1,123 @@
 {
-  "title": "{name} Account",
-  "description": "A single bridge for confidential data management.",
+	"title": "{name} Account",
+	"description": "A single bridge for confidential data management.",
 
-  "modal": {
-    "done": "Done"
-  },
+	"modal": {
+		"done": "Done"
+	},
 
-  "error": {
-    "form": {
-      "title": "Error in the form",
-      "email": "Email is not valid.",
-      "password": "Password is invalid.",
-      "invite_code": "Enter a valid invite code.",
-      "id": "Identifier is already in use."
-    },
-    "internal_server_error": "Selected host is unavailable"
-  },
+	"error": {
+		"form": {
+			"title": "Error in the form",
+			"email": "Email is not valid.",
+			"password": "Password is invalid.",
+			"invite_code": "Enter a valid invite code.",
+			"id": "Identifier is already in use."
+		},
+		"internal_server_error": "Selected host is unavailable"
+	},
 
-  "authentification": {
-    "signin": "Sign in",
-    "server_addr": "Server address",
-    "host_provider": "Host provider",
-    "select_host_provider": "Select the service that hosts your data.",
-    "email": "Email address",
-    "password": "Password",
-    "forgot": "(Forgot?)",
-    "forgot_mfa": "Have you lost your key?",
-    "create_account": "No account? Create one!",
-    "mfa": "Enter your two-factor code.",
-    "trust": {
-      "title": "Add a trusted server",
-      "description": "Would you like to add {server} to your trusted servers? (A trusted server is a server that will be able to save your data (e-mail, password, etc.) without asking for authorization later on).",
-      "trust": "Trust",
-      "use_default": "Use default server"
-    },
+	"authentification": {
+		"signin": "Sign in",
+		"server_addr": "Server address",
+		"host_provider": "Host provider",
+		"select_host_provider": "Select the service that hosts your data.",
+		"email": "Email address",
+		"password": "Password",
+		"forgot": "(Forgot?)",
+		"forgot_mfa": "Have you lost your key?",
+		"create_account": "No account? Create one!",
+		"mfa": "Enter your two-factor code.",
+		"trust": {
+			"title": "Add a trusted server",
+			"description": "Would you like to add {server} to your trusted servers? (A trusted server is a server that will be able to save your data (e-mail, password, etc.) without asking for authorization later on).",
+			"trust": "Trust",
+			"use_default": "Use default server"
+		},
 
-    "login_account": "Already an account? Sign in!",
-    "create": "Create my account",
-    "invite_only": "This server requires an invitation. The invitation code is checked during registration.",
-    "invite_code": "Invitation code",
-    "id": "Username",
-    "tos": "Terms of Service",
-    "privacy": "Privacy policy",
-    "terms": "By registering, you accept the terms of use and privacy policy of the server."
-  },
+		"login_account": "Already an account? Sign in!",
+		"create": "Create my account",
+		"invite_only": "This server requires an invitation. The invitation code is checked during registration.",
+		"invite_code": "Invitation code",
+		"id": "Username",
+		"tos": "Terms of Service",
+		"privacy": "Privacy policy",
+		"terms": "By registering, you accept the terms of use and privacy policy of the server."
+	},
 
-  "profile": {
-    "save": "Save",
-    "my_profile": "My profile",
-    "contact_info": "Contact details",
-    "security": "Security",
-    "toast": {
-      "title": "Account",
-      "profile": "Your account has been modified.",
-      "password": "Your password has been modified.",
-      "totp": "2FA activated on account!"
-    },
-    "password": {
-      "title": "Update password",
-      "new": "New password",
-      "old": "Old password"
-    },
-    "totp": {
-      "button": "Two-factor authentication (TOTP)",
-      "title": "Set up 2FA",
-      "description": "is the key to write on application.",
-      "code": "Code",
-      "scan": {
-        "title": "Scan the QR Code",
-        "description": "Scan the image on the left using your phone's camera."
-      },
-      "manual": "Manual input"
-    },
-    "password_required": "Password is required to update email address."
-  },
+	"profile": {
+		"save": "Save",
+		"my_profile": "My profile",
+		"contact_info": "Contact details",
+		"security": "Security",
+		"toast": {
+			"title": "Account",
+			"profile": "Your account has been modified.",
+			"password": "Your password has been modified.",
+			"totp": "2FA activated on account!"
+		},
+		"password": {
+			"title": "Update password",
+			"new": "New password",
+			"old": "Old password"
+		},
+		"totp": {
+			"button": "Two-factor authentication (TOTP)",
+			"title": "Set up 2FA",
+			"description": "is the key to write on application.",
+			"code": "Code",
+			"scan": {
+				"title": "Scan the QR Code",
+				"description": "Scan the image on the left using your phone's camera."
+			},
+			"manual": "Manual input"
+		},
+		"password_required": "Password is required to update email address."
+	},
 
-  "keys": {
-    "generate": "Generate a key",
-    "title": "Public keys on server",
-    "description": "Key {id} of {date}",
-    "download": "Download public key",
-    "delete": "Delete",
-    "empty": "Create your first key pair to begin to connect!"
-  },
+	"keys": {
+		"generate": "Generate a key",
+		"title": "Public keys on server",
+		"description": "Key {id} of {date}",
+		"download": "Download public key",
+		"delete": "Delete",
+		"empty": "Create your first key pair to begin to connect!"
+	},
 
-  "account": {
-    "download": {
-      "title": "Data of my account",
-      "button": "Download data linked to my account"
-    },
-    "delete": {
-      "title": "Delete my account",
-      "description": "You will delete your account. THIS ACTION IS IRREVERSIBLE! Enter your password to proceed."
-    }
-  },
+	"account": {
+		"download": {
+			"title": "Data of my account",
+			"button": "Download data linked to my account"
+		},
+		"delete": {
+			"title": "Delete my account",
+			"description": "You will delete your account. THIS ACTION IS IRREVERSIBLE! Enter your password to proceed."
+		}
+	},
 
-  "navbar": {
-    "profile": "Profile",
-    "keys": "Keys",
-    "account": "Account",
-    "logout": "Log out"
-  },
+	"navbar": {
+		"profile": "Profile",
+		"keys": "Keys",
+		"account": "Account",
+		"logout": "Log out"
+	},
 
-  "authorize": {
-    "title": "Log in to {host}",
-    "create_key": "A cryptographic key pair, comprising a locally-secured private key and a public key, is required for authentication. Please follow your browser's instructions or click on the button below to generate it. This mechanism enables a decentralised connection.",
-    "access": {
-      "title": "This will allow {host} to:",
-      "username": "Access your username"
-    },
-    "error": {
-      "redirect": "Oops... \"redirect\" field is missing on query.",
-      "challenge": "Add a query field \"challenge\" with a base64 encoded WebAuthN code."
-    }
-  },
+	"authorize": {
+		"title": "Log in to {host}",
+		"create_key": "A cryptographic key pair, comprising a locally-secured private key and a public key, is required for authentication. Please follow your browser's instructions or click on the button below to generate it. This mechanism enables a decentralised connection.",
+		"access": {
+			"title": "This will allow {host} to:",
+			"username": "Access your username"
+		},
+		"error": {
+			"redirect": "Oops... \"redirect\" field is missing on query.",
+			"challenge": "Add a query field \"challenge\" with a base64 encoded WebAuthN code."
+		}
+	},
 
-  "or": "or",
-  "default": "Default",
-  "recommended": "(recommended)",
-  "no_name": "No name",
-  "next": "Next"
+	"or": "or",
+	"default": "Default",
+	"recommended": "(recommended)",
+	"no_name": "No name",
+	"next": "Next"
 }
