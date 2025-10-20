@@ -65,6 +65,7 @@ export default defineNuxtConfig({
 		head: {
 			charset: "utf-8",
 			viewport: "width=device-width,initial-scale=1",
+			title: "Gravitalia Account",
 			bodyAttrs: {
 				class: "dark:bg-zinc-950 dark:text-white font-sans",
 			},
