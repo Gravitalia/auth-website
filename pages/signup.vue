@@ -26,7 +26,6 @@ const { t } = useI18n();
 
 const checkAndUpdateServer = async () => {
 	const server = useRoute().query?.server?.toString();
-	console.log(server);
 	const defaultHoister = defaultServer(server);
 
 	const newStatus = await useAppInfo(`${defaultHoister}/status.json`);
@@ -34,7 +33,11 @@ const checkAndUpdateServer = async () => {
 		hostUpdate(defaultHoister, newStatus.data.value);
 	}
 
-	if (server && defaultHoister === staticDefaultServer) {
+	if (
+		server &&
+		defaultHoister === staticDefaultServer &&
+		server !== staticDefaultServer
+	) {
 		trustServer.server = server;
 		trustServer.shown = true;
 	}
@@ -70,7 +73,8 @@ const hostUpdate = (url?: string, info?: AppInfo) => {
 		user.updateApi(normalizeUrl(info.url));
 		addServer(url);
 		// Add server update on user history.
-		useRouter().push({ query: { server: url } });
+		if (url !== staticDefaultServer)
+			useRouter().push({ query: { server: url } });
 	}
 };
 
