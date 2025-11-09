@@ -33,15 +33,15 @@ export const useUsers = defineStore("users", {
 		 * After a 15-minute period, JWT expires.
 		 * This functions automatically recreates JWT.
 		 */
-		startTokenRotation() {
+		async startTokenRotation() {
 			if (this._refreshIntervalId) return;
 
 			const refreshTokenCookie = useCookie(REFRESH_TOKEN);
 			if (refreshTokenCookie.value) {
-				this._rotateToken();
+				await this._rotateToken();
 				this._refreshIntervalId = setInterval(
-					() => {
-						this._rotateToken();
+					async () => {
+						await this._rotateToken();
 					},
 					1000 * 60 * 15,
 				);
@@ -94,7 +94,7 @@ export const useUsers = defineStore("users", {
 			email: string,
 			password: string,
 			totpCode?: string,
-		): Promise<void> {
+		) {
 			const route = `${this.protocol}//${this.host}/login`;
 			const payload = { email, password, totpCode };
 			await this._req(route, payload);
@@ -112,7 +112,7 @@ export const useUsers = defineStore("users", {
 			email: string,
 			password: string,
 			invite?: string,
-		): Promise<void> {
+		) {
 			const route = `${this.protocol}//${this.host}/create`;
 			const payload = { id, email, password, invite };
 			await this._req(route, payload);
@@ -149,7 +149,7 @@ export const useUsers = defineStore("users", {
 		 * Remove a public key from Autha instance.
 		 * @param {number} id Key ID.
 		 */
-		async removeKey(id: number): Promise<void> {
+		async removeKey(id: number) {
 			const route = `${this.protocol}//${this.host}/users/@me`;
 			const payload = { publicKeys: id };
 			await this._req(route, payload, {
@@ -169,7 +169,7 @@ export const useUsers = defineStore("users", {
 			password?: string;
 			totpSecret?: string;
 			totpCode?: string;
-		}): Promise<void> {
+		}) {
 			const route = `${this.protocol}//${this.host}/users/@me`;
 			const payload = {
 				publicKeys: opt.pem,
@@ -237,7 +237,7 @@ export const useUsers = defineStore("users", {
 			token: string,
 			refresh_token: string,
 			expires_in: number,
-		): Promise<void> {
+		) {
 			this._token = token;
 
 			useCookie(SERVER, {
@@ -264,7 +264,7 @@ export const useUsers = defineStore("users", {
 			this.startTokenRotation();
 		},
 
-		async _renewToken(refresh_token: string): Promise<void> {
+		async _renewToken(refresh_token: string) {
 			const route = `${this.protocol}//${this.host}/oauth/refresh_token`;
 			const payload = { grant_type: REFRESH_TOKEN, refresh_token };
 			await this._req(route, payload);
