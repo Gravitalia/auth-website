@@ -38,7 +38,7 @@ export const useUsers = defineStore("users", {
 
 			const refreshTokenCookie = useCookie(REFRESH_TOKEN);
 			if (refreshTokenCookie.value) {
-				if(!useCookie(TOKEN).value) await this._rotateToken();
+				if (!useCookie(TOKEN).value) await this._rotateToken();
 				this._refreshIntervalId = setInterval(
 					async () => {
 						await this._rotateToken();
@@ -90,11 +90,7 @@ export const useUsers = defineStore("users", {
 		 * @param {string} password
 		 * @param {string} totpCode
 		 */
-		async signIn(
-			email: string,
-			password: string,
-			totpCode?: string,
-		) {
+		async signIn(email: string, password: string, totpCode?: string) {
 			const route = `${this.protocol}//${this.host}/login`;
 			const payload = { email, password, totpCode };
 			await this._req(route, payload);
@@ -107,12 +103,7 @@ export const useUsers = defineStore("users", {
 		 * @param {string} password
 		 * @param {string} invite
 		 */
-		async signUp(
-			id: string,
-			email: string,
-			password: string,
-			invite?: string,
-		) {
+		async signUp(id: string, email: string, password: string, invite?: string) {
 			const route = `${this.protocol}//${this.host}/create`;
 			const payload = { id, email, password, invite };
 			await this._req(route, payload);
@@ -233,11 +224,7 @@ export const useUsers = defineStore("users", {
 			}
 		},
 
-		async _setToken(
-			token: string,
-			refresh_token: string,
-			expires_in: number,
-		) {
+		async _setToken(token: string, refresh_token: string, expires_in: number) {
 			this._token = token;
 
 			useCookie(SERVER, {
