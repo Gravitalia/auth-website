@@ -265,7 +265,7 @@ export const useUsers = defineStore("users", {
 		},
 
 		async _renewToken(refresh_token: string) {
-			const route = `${this.protocol}//${this.host}/oauth/refresh_token`;
+			const route = `${this.protocol}//${this.host}/oauth/token`;
 			const payload = { grant_type: REFRESH_TOKEN, refresh_token };
 			await this._req(route, payload);
 		},

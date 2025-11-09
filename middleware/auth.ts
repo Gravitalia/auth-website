@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
 	// If token is undefined but refresh token exists,
 	// it'll automatically reset the token and connect user.
-	await user.startTokenRotation();
+	await user._rotateToken();
 
 	if (!user._token) {
 		// If user is not logged, redirect it to login page.
