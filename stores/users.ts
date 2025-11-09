@@ -3,6 +3,7 @@ import type { ServerError, User, ConnectResponse } from "~/types";
 import { ServerErrorClass } from "~/types";
 
 const REFRESH_TOKEN_DURATION = 60 * 60 * 24 * 15; // 15 days.
+const SERVER = "server";
 const TOKEN = "token";
 const REFRESH_TOKEN = "refresh_token";
 
@@ -12,16 +13,8 @@ export const useUsers = defineStore("users", {
 			useRuntimeConfig().public.defaultServer,
 		);
 
-		let token;
-		if (useCookie(TOKEN).value) {
-			const values = useCookie(TOKEN).value?.split(".");
-			if (values && values[0] && values[1]) {
-				host = atob(values[0]);
-				token = values[1];
-			} else if (values && values[0]) {
-				token = values[0];
-			}
-		}
+		host = useCookie(SERVER).value ?? host;
+		const token = useCookie(TOKEN).value ?? undefined;
 
 		return {
 			userData: {} as User,
@@ -78,22 +71,18 @@ export const useUsers = defineStore("users", {
 		async get(id: string = "@me"): Promise<User> {
 			const route = `${this.protocol}//${this.host}/users/${id}`;
 
-			try {
-				const response = await fetch(route, {
-					headers: {
-						Accept: "application/json",
-						Authorization: this._token ?? "",
-					},
-				});
+			const response = await fetch(route, {
+				headers: {
+					Accept: "application/json",
+					Authorization: this._token ?? "",
+				},
+			});
 
-				const data = await response.json();
+			const data = await response.json();
 
-				if (!response.ok) throw new ServerErrorClass(data as ServerError);
+			if (!response.ok) throw new ServerErrorClass(data as ServerError);
 
-				return data as User;
-			} catch (error) {
-				throw error;
-			}
+			return data as User;
 		},
 
 		/**
@@ -252,7 +241,11 @@ export const useUsers = defineStore("users", {
 		): Promise<void> {
 			this._token = token;
 
-			token = `${btoa(this.host)}.${token}`;
+			useCookie(SERVER, {
+				sameSite: "strict",
+				secure: isProduction,
+			}).value = this.host;
+
 			useCookie(TOKEN, {
 				maxAge: expires_in,
 				sameSite: "strict",
@@ -262,7 +255,7 @@ export const useUsers = defineStore("users", {
 			useCookie(REFRESH_TOKEN, {
 				maxAge: REFRESH_TOKEN_DURATION,
 				sameSite: "strict",
-				secure: isProduction,
+				secure: true,
 			}).value = refresh_token;
 
 			this.userData = await this.get();

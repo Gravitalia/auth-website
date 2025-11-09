@@ -90,9 +90,7 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		public: {
-			defaultServer: isDevelopment
-				? "localhost:8080"
-				: "auth.gravitalia.com",
+			defaultServer: isDevelopment ? "localhost:8080" : "auth.gravitalia.com",
 		},
 	},
 
