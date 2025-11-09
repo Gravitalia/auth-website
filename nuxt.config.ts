@@ -91,8 +91,8 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			defaultServer: isDevelopment
-				? "localhost:3000"
-				: "account.gravitalia.com",
+				? "localhost:8080"
+				: "auth.gravitalia.com",
 		},
 	},
 
@@ -135,7 +135,7 @@ export default defineNuxtConfig({
 				"frame-ancestors": ["'none'"],
 				"frame-src": ["'none'"],
 				"worker-src": ["none"],
-				"connect-src": ["'self'", "https:", "localhost:"],
+				"connect-src": ["'self'", "https:", "localhost:8080"],
 				"img-src": ["'self'", "https:", "data:", "blob:"],
 				"media-src": ["'self'", "https:"],
 				"style-src": ["'self'", "'nonce-{{nonce}}'"],
