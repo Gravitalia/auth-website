@@ -38,7 +38,7 @@ export const useUsers = defineStore("users", {
 
 			const refreshTokenCookie = useCookie(REFRESH_TOKEN);
 			if (refreshTokenCookie.value) {
-				await this._rotateToken();
+				if(!useCookie(TOKEN).value) await this._rotateToken();
 				this._refreshIntervalId = setInterval(
 					async () => {
 						await this._rotateToken();
