@@ -241,8 +241,10 @@ export const useUsers = defineStore("users", {
 			this._token = token;
 
 			useCookie(SERVER, {
+				maxAge: REFRESH_TOKEN_DURATION,
 				sameSite: "strict",
 				secure: isProduction,
+				priority: "high",
 			}).value = this.host;
 
 			useCookie(TOKEN, {
@@ -255,6 +257,7 @@ export const useUsers = defineStore("users", {
 				maxAge: REFRESH_TOKEN_DURATION,
 				sameSite: "strict",
 				secure: true,
+				priority: "high",
 			}).value = refresh_token;
 
 			this.userData = await this.get();
