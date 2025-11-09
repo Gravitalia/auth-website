@@ -34,12 +34,11 @@ export const useUsers = defineStore("users", {
 		 * This functions automatically recreates JWT.
 		 */
 		startTokenRotation() {
-			if (this._refreshIntervalId) {
-				clearInterval(this._refreshIntervalId);
-			}
+			if (this._refreshIntervalId) return;
 
 			const refreshTokenCookie = useCookie(REFRESH_TOKEN);
 			if (refreshTokenCookie.value) {
+				this._rotateToken();
 				this._refreshIntervalId = setInterval(
 					() => {
 						this._rotateToken();
