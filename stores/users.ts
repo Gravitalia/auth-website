@@ -93,7 +93,7 @@ export const useUsers = defineStore("users", {
 		async signIn(email: string, password: string, totpCode?: string) {
 			const route = `${this.protocol}//${this.host}/login`;
 			const payload = { email, password, totpCode };
-			await this._req(route, payload);
+			return await this._req(route, payload);
 		},
 
 		/**
@@ -106,7 +106,7 @@ export const useUsers = defineStore("users", {
 		async signUp(id: string, email: string, password: string, invite?: string) {
 			const route = `${this.protocol}//${this.host}/create`;
 			const payload = { id, email, password, invite };
-			await this._req(route, payload);
+			return await this._req(route, payload);
 		},
 
 		async checkInviteCode(invite: string): Promise<boolean | undefined> {
