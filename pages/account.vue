@@ -39,8 +39,8 @@ const download = () => {
 <template>
 	<DeleteModal @close="visible = false" :visible />
 
-	<div class="flex flex-col justify-center items-center mt-16 gap-4">
-		<Card :title="$t('account.download.title')" class="md:w-1/2 lg:w-1/3">
+	<div class="flex flex-col justify-center items-center mt-16 gap-4 mx-2">
+		<Card :title="$t('account.download.title')" class="w-full lg:w-2/5">
 			<ButtonInvisible
 				@click="download"
 				class="w-full px-4 flex justify-between"
@@ -50,7 +50,7 @@ const download = () => {
 			</ButtonInvisible>
 		</Card>
 
-		<Card :title="$t('account.delete.title')" class="md:w-1/2 lg:w-1/3">
+		<Card :title="$t('account.delete.title')" class="w-full lg:w-2/5">
 			<ButtonInvisible
 				@click="visible = true"
 				class="w-full px-4 flex justify-between"

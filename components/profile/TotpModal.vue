@@ -13,6 +13,10 @@ const data = reactive({
 	password: "",
 });
 const dataUri = ref("");
+const errorState = reactive({
+	totp: false,
+	password: false,
+});
 
 defineProps({
 	visible: Boolean,
@@ -22,19 +26,38 @@ const { t } = useI18n();
 const emit = defineEmits(["close"]);
 const close = () => emit("close");
 const finish = () => {
+	errorState.totp = false;
+	errorState.password = false;
+
+	if (data.code === "" || data.code.length !== 6) {
+		errorState.totp = true;
+		return;
+	}
+
+	if (data.password === "") {
+		errorState.password = true;
+		return;
+	}
+
 	user
 		.updateMe({
 			totpSecret: data.secret,
 			totpCode: data.code,
 			password: data.password,
 		})
-		.catch((_: ServerErrorClass) => {})
 		.then((_) => {
 			toast({
 				title: t("profile.toast.title"),
 				description: t("profile.toast.totp"),
-			}),
-				emit("close");
+			});
+			emit("close");
+		})
+		.catch((err: ServerErrorClass) => {
+			if (err.json.errors?.find((e) => e.field === "password")) {
+				errorState.password = true;
+			} else {
+				errorState.totp = true;
+			}
 		});
 };
 
@@ -75,10 +98,12 @@ onMounted(() => {
 		<Input
 			v-model="data.code"
 			type="text"
+			autofocus
 			required
 			class="mt-4 w-full"
 			min="2"
 			max="8"
+			:error="errorState.totp"
 			:placeholder="$t('profile.totp.code')"
 		/>
 
@@ -87,6 +112,7 @@ onMounted(() => {
 			type="password"
 			required
 			class="mt-4 w-full"
+			:error="errorState.password"
 			:placeholder="$t('authentification.password')"
 		/>
 	</Modal>

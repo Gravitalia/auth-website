@@ -12,12 +12,12 @@ const { keys, generateKey, deleteKey } = useKeys();
 </script>
 
 <template>
-	<div class="flex flex-col justify-center items-center mt-16 gap-4">
-		<ButtonInvisible @click="generateKey" class="w-80 md:w-1/2 lg:w-1/3">{{
+	<div class="flex flex-col justify-center items-center mt-16 gap-4 mx-2">
+		<ButtonInvisible @click="generateKey" class="w-full lg:w-2/5">{{
 			$t("keys.generate")
 		}}</ButtonInvisible>
 
-		<Card :title="$t('keys.title')" class="md:w-1/2 lg:w-1/3 gap-4">
+		<Card :title="$t('keys.title')" class="w-full lg:w-2/5 gap-4">
 			<div v-for="key in keys" class="flex justify-between">
 				<div>
 					<p>

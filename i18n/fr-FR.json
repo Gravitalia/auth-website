@@ -56,6 +56,10 @@
 			"password": "Votre mot de passe a été modifié.",
 			"totp": "Authentification à deux facteurs activée sur le compte !"
 		},
+		"email": {
+			"title": "Mettre à jour l'adresse e-mail",
+			"description": "Le mot de passe est requis pour modifier l'adresse e-mail."
+		},
 		"password": {
 			"title": "Modifier le mot de passe",
 			"new": "Nouveau mot de passe",
@@ -71,8 +75,7 @@
 				"description": "Scanne l'image à gauche avec l'appareil photo de ton téléphone."
 			},
 			"manual": "Saisie manuelle"
-		},
-		"password_required": "Le mot de passe est requis pour modifier l'adresse e-mail."
+		}
 	},
 
 	"keys": {

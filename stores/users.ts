@@ -170,7 +170,7 @@ export const useUsers = defineStore("users", {
 				totpSecret: opt.totpSecret,
 				totpCode: opt.totpCode,
 			};
-			this._req(route, payload, {
+			return this._req(route, payload, {
 				method: "patch",
 				authorization: this._token,
 			});
@@ -243,7 +243,7 @@ export const useUsers = defineStore("users", {
 			useCookie(REFRESH_TOKEN, {
 				maxAge: REFRESH_TOKEN_DURATION,
 				sameSite: "strict",
-				secure: true,
+				secure: false,
 				priority: "high",
 			}).value = refresh_token;
 

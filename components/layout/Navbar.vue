@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ArrowLeftStartOnRectangleIcon } from "@heroicons/vue/24/outline";
+
 const path = computed(() => useRoute().path);
 const links = [
 	{
@@ -29,7 +31,9 @@ const { data } = await useAppInfo(`${user.host}/status.json`);
 		class="flex items-center justify-between bg-white dark:bg-zinc-900 px-4 md:px-24 py-3 shadow-sm rounded-t-md"
 	>
 		<div class="flex items-center space-x-10">
-			<NuxtImg v-if="data?.favicon" :src="data.favicon" class="size-10" />
+			<NuxtLink to="https://www.gravitalia.com/">
+				<NuxtImg v-if="data?.favicon" :src="data.favicon" class="size-10" />
+			</NuxtLink>
 
 			<div class="flex space-x-6 text-sm font-medium">
 				<NuxtLink
@@ -58,9 +62,19 @@ const { data } = await useAppInfo(`${user.host}/status.json`);
 			</div>
 		</div>
 
-		<div class="flex items-center space-x-4">
-			<FormButtonInvisible @click="logout" class="border-none px-4">
+		<div class="flex flex-col items-center space-x-4">
+			<FormButtonInvisible
+				@click="logout"
+				class="hidden xl:block border-none px-4"
+			>
 				{{ $t("navbar.logout") }}
+			</FormButtonInvisible>
+			<FormButtonInvisible
+				@click="logout"
+				class="block xl:hidden border-none px-4"
+			>
+				<ArrowLeftStartOnRectangleIcon class="size-6" />
+				<span class="sr-only">{{ $t("navbar.logout") }}</span>
 			</FormButtonInvisible>
 		</div>
 	</nav>

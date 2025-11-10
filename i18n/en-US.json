@@ -56,6 +56,10 @@
 			"password": "Your password has been modified.",
 			"totp": "2FA activated on account!"
 		},
+		"email": {
+			"title": "Update email",
+			"description": "Password is required to update email address."
+		},
 		"password": {
 			"title": "Update password",
 			"new": "New password",
@@ -71,8 +75,7 @@
 				"description": "Scan the image on the left using your phone's camera."
 			},
 			"manual": "Manual input"
-		},
-		"password_required": "Password is required to update email address."
+		}
 	},
 
 	"keys": {

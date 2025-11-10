@@ -1,11 +1,11 @@
 {
-    "name": "Gravitalia",
-    "url": "https://auth.gravitalia.com/",
-    "favicon": "https://account.gravitalia.com/favicon.webp",
-    "background": null,
-    "terms_of_service": "https://account.gravitalia.com/terms.pdf",
-    "privacy_policy": "https://account.gravitalia.com/privacy.pdf",
-    "invite_only": true,
-    "version": "0.3.2",
+	"name": "Gravitalia",
+	"url": "https://auth.gravitalia.com/",
+	"favicon": "https://account.gravitalia.com/favicon.webp",
+	"background": null,
+	"terms_of_service": "https://account.gravitalia.com/terms.pdf",
+	"privacy_policy": "https://account.gravitalia.com/privacy.pdf",
+	"invite_only": true,
+	"version": "0.3.2",
 	"support": "mailto:support@gravitalia.com"
 }
