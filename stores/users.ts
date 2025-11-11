@@ -133,7 +133,9 @@ export const useUsers = defineStore("users", {
 			// Clear user and cookies.
 			this.userData = {} as User;
 			this._token = undefined;
+			useCookie(REFRESH_TOKEN).value = undefined;
 			useCookie(TOKEN).value = undefined;
+			useCookie(SERVER).value = undefined;
 		},
 
 		/**
@@ -243,7 +245,7 @@ export const useUsers = defineStore("users", {
 			useCookie(REFRESH_TOKEN, {
 				maxAge: REFRESH_TOKEN_DURATION,
 				sameSite: "strict",
-				secure: false,
+				secure: true,
 				priority: "high",
 			}).value = refresh_token;
 
