@@ -7,11 +7,10 @@ import ButtonInvisible from "~/components/form/ButtonInvisible.vue";
 import Card from "~/components/form/Card.vue";
 import Input from "~/components/form/Input.vue";
 import useEnterKey from "~/composables/useEnterKey";
-import type { AppInfo } from "~/types";
+import type { AppInfo, ConnectResponse } from "~/types";
 import { ServerErrorClass } from "~/types";
 import { useUsers } from "~/stores/users";
 import { toast } from "~/composables/useToast";
-import { useRedirect } from "~/composables/useRedirect";
 
 // Load custom server manager.
 const staticDefaultServer = useRuntimeConfig().public.defaultServer;
@@ -105,8 +104,9 @@ const login = (totpCode?: string) => {
 			credentials.password,
 			totpCode || credentials.totpCode,
 		)
-		.then(async () => {
+		.then(async (_: ConnectResponse) => {
 			await navigateTo(useRedirect("/"));
+			return;
 		})
 		.catch((err: ServerErrorClass) => {
 			try {

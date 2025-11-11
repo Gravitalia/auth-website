@@ -103,7 +103,12 @@ export const useUsers = defineStore("users", {
 		 * @param {string} password
 		 * @param {string} invite
 		 */
-		async signUp(id: string, email: string, password: string, invite?: string) {
+		async signUp(
+			id: string,
+			email: string,
+			password: string,
+			invite?: string,
+		): Promise<ConnectResponse> {
 			const route = `${this.protocol}//${this.host}/create`;
 			const payload = { id, email, password, invite };
 			return await this._req(route, payload);
@@ -202,7 +207,7 @@ export const useUsers = defineStore("users", {
 				method: "post",
 				authorization: undefined,
 			},
-		): Promise<ConnectResponse | ServerError | Error> {
+		): Promise<ConnectResponse> {
 			const response = await fetch(url, {
 				method: opt.method,
 				headers: {

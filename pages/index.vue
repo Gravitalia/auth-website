@@ -60,9 +60,12 @@ const save = () => {
 	<TotpModal @close="modals.totp = false" :visible="modals.totp" />
 
 	<div class="flex flex-col justify-center items-center mt-16 gap-4 mx-2">
-		<ButtonInvisible :disabled="credentials.username === user.userData.preferredUsername" @click="save" class="w-full lg:w-2/5">{{
-			$t("profile.save")
-		}}</ButtonInvisible>
+		<ButtonInvisible
+			:disabled="credentials.username === user.userData.preferredUsername"
+			@click="save"
+			class="w-full lg:w-2/5"
+			>{{ $t("profile.save") }}</ButtonInvisible
+		>
 
 		<Card :title="$t('profile.my_profile')" class="w-full lg:w-2/5">
 			<div>

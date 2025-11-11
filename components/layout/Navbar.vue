@@ -65,13 +65,13 @@ const { data } = await useAppInfo(`${user.host}/status.json`);
 		<div class="flex flex-col items-center space-x-4">
 			<FormButtonInvisible
 				@click="logout"
-				class="hidden xl:block border-none px-4"
+				class="hidden md:block border-none px-4"
 			>
 				{{ $t("navbar.logout") }}
 			</FormButtonInvisible>
 			<FormButtonInvisible
 				@click="logout"
-				class="block xl:hidden border-none px-4"
+				class="block md:hidden border-none px-4"
 			>
 				<ArrowLeftStartOnRectangleIcon class="size-6" />
 				<span class="sr-only">{{ $t("navbar.logout") }}</span>

@@ -7,7 +7,7 @@ import ButtonInvisible from "~/components/form/ButtonInvisible.vue";
 import Card from "~/components/form/Card.vue";
 import Input from "~/components/form/Input.vue";
 import useEnterKey from "~/composables/useEnterKey";
-import type { AppInfo } from "~/types";
+import type { AppInfo, ConnectResponse } from "~/types";
 import { ServerErrorClass } from "~/types";
 import { useUsers } from "~/stores/users";
 import { useRedirect } from "~/composables/useRedirect";
@@ -129,22 +129,30 @@ const create = async () => {
 			formData.password,
 			formData.invite_code,
 		)
-		.then(async () => {
+		.then(async (_: ConnectResponse) => {
 			await navigateTo(useRedirect("/"));
+			return;
 		})
 		.catch((err: ServerErrorClass) => {
-			if (err.json.errors?.find((e) => e.field === "invite")) {
-				step.value = 0;
-				error("invite_code", "error.form.invite_code");
-			} else if (err.json.detail?.includes("Key (id)=")) {
-				step.value = 1;
-				error("id", "error.form.id");
-			} else if (err.json.detail?.includes("Key (email)=")) {
-				step.value = 1;
-				error("email", "error.form.email");
-			} else if (err.json.errors?.find((e) => e.field === "password")) {
-				step.value = 1;
-				error("password", "error.form.password");
+			try {
+				if (err.json.errors?.find((e) => e.field === "invite")) {
+					step.value = 0;
+					error("invite_code", "error.form.invite_code");
+				} else if (err.json.detail?.includes("Key (id)=")) {
+					step.value = 1;
+					error("id", "error.form.id");
+				} else if (err.json.detail?.includes("Key (email)=")) {
+					step.value = 1;
+					error("email", "error.form.email");
+				} else if (err.json.errors?.find((e) => e.field === "password")) {
+					step.value = 1;
+					error("password", "error.form.password");
+				}
+			} catch (_) {
+				toast({
+					title: t("error.internal_server_error"),
+					description: t("error.internal_server_error"),
+				});
 			}
 		});
 };
