@@ -61,7 +61,7 @@ const _base64ToArrayBuffer = (base64: string) => {
 	return bytes;
 };
 
-const login = async () => {
+const authorize = async () => {
 	if (!keyId.value || keyId.value === "")
 		return (keyId.value = (await generateKey()).id);
 	if (step.value === 1) step.value++;
@@ -98,7 +98,7 @@ const login = async () => {
 			backgroundSize: 'cover',
 		}"
 	>
-		<form @submit.prevent="login" class="space-y-6">
+		<div class="space-y-6">
 			<Card class="w-80 lg:w-96" :title="$t('authorize.title', { host })">
 				<div v-show="errorState.redirect">
 					<p class="flex text-sm text-zinc-600 dark:text-zinc-300">
@@ -124,9 +124,9 @@ const login = async () => {
 				</div>
 			</Card>
 
-			<Button v-show="step !== 0" class="w-80 lg:w-96" type="submit">{{
+			<Button v-show="step !== 0" class="w-80 lg:w-96" @click="authorize">{{
 				$t("authentification.signin")
 			}}</Button>
-		</form>
+		</div>
 	</div>
 </template>
