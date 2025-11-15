@@ -7,6 +7,12 @@ const _arrayBufferToBase64 = (buffer: any) => {
 	return window.btoa(binary);
 };
 
+const _stringToArrayBuffer = (str: string) => {
+	const encoder = new TextEncoder();
+	const uint8Array = encoder.encode(str);
+	return uint8Array.buffer;
+};
+
 export default function useKeys() {
 	const u = useUsers();
 	const user = u.userData;
@@ -16,9 +22,10 @@ export default function useKeys() {
 			challenge: new Uint8Array(32),
 			rp: {
 				name: "Gravitalia",
+				id: "Gravitalia",
 			},
 			user: {
-				id: new Uint8Array([0]), // Not exist on Gravitalia.
+				id: new Uint8Array(_stringToArrayBuffer(user.id)),
 				name: user.id,
 				displayName: user.preferredUsername,
 			},
@@ -26,12 +33,13 @@ export default function useKeys() {
 				{ type: "public-key", alg: -7 }, // ECDSA256
 				{ type: "public-key", alg: -257 }, // RSA
 			],
-		};
+		} as PublicKeyCredentialCreationOptions;
 
 		const credential = await navigator.credentials.create({
 			publicKey: publicKeyOptions,
-		});
-		const pk = credential?.response.getPublicKey();
+		}) as PublicKeyCredential;
+		const credentialResponse = credential.response as AuthenticatorAttestationResponse;
+		const pk = credentialResponse.getPublicKey();
 
 		const base64 = _arrayBufferToBase64(pk);
 		const pem =
