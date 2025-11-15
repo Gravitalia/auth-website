@@ -22,7 +22,6 @@ export default function useKeys() {
 			challenge: new Uint8Array(32),
 			rp: {
 				name: "Gravitalia",
-				id: "Gravitalia",
 			},
 			user: {
 				id: new Uint8Array(_stringToArrayBuffer(user.id)),

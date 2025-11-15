@@ -235,7 +235,7 @@ export const useUsers = defineStore("users", {
 			this._token = token;
 
 			useCookie(SERVER, {
-				maxAge: REFRESH_TOKEN_DURATION,
+				expires: undefined,
 				sameSite: "strict",
 				secure: isProduction,
 				priority: "high",
