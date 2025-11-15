@@ -17,6 +17,7 @@ const staticDefaultServer = useRuntimeConfig().public.defaultServer;
 const user = useUsers();
 const { generateKey } = useKeys();
 const userId = user.userData?.id || "";
+const server = useCookie("server").value || staticDefaultServer;
 const keyId = ref(useCookie("key").value);
 const { redirect, challenge: queryChallenge } = useRoute().query;
 const step = ref(0);
@@ -88,7 +89,7 @@ const authorize = async () => {
 	);
 
 	await navigateTo(
-		`${protocol}//${host}${path}?signature=${signature}&id=${userId}&key=${keyId.value}&authenticatorData=${authenticatorData}&clientDataJson=${clientDataJson}`,
+		`${protocol}//${host}${path}?signature=${signature}&id=${userId}@${server}&key=${keyId.value}&authenticatorData=${authenticatorData}&clientDataJson=${clientDataJson}`,
 		{ external: true },
 	);
 };
