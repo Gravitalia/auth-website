@@ -39,18 +39,27 @@ try {
 
 if (!errorState.redirect && !errorState.challenge)
 	step.value = !keyId.value || keyId.value === "" ? 1 : 2;
-console.log(!errorState.challenge);
 
-const _arrayBufferToBase64 = (buffer: any) => {
-	const bytes = new Uint8Array(buffer);
+const _arrayBufferToBase64Url = (buffer: ArrayBuffer): string => {
+	const bytes = Buffer.from(buffer);
+
 	let binary = "";
-	bytes.forEach((byte) => {
-		binary += String.fromCharCode(byte);
-	});
-	return window.btoa(binary);
+	for (let i = 0; i < bytes.byteLength; i++) {
+		binary += String.fromCharCode(bytes[i]);
+	}
+
+	const base64 = window.btoa(binary);
+
+	return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 };
 
-const _base64ToArrayBuffer = (base64: string) => {
+const _base64UrlToArrayBuffer = (base64: string) => {
+	base64 = base64.replace(/-/g, "+").replace(/_/g, "/");
+
+	while (base64.length % 4) {
+		base64 += "=";
+	}
+
 	const binaryString = atob(base64);
 
 	const bytes = new Uint8Array(binaryString.length);
@@ -66,20 +75,22 @@ const authorize = async () => {
 		return (keyId.value = (await generateKey()).id);
 	if (step.value === 1) step.value++;
 
-	const challenge = _base64ToArrayBuffer(queryChallenge as string);
-	const assertion = await navigator.credentials.get({
+	const challenge = _base64UrlToArrayBuffer(queryChallenge as string);
+	const assertion = (await navigator.credentials.get({
 		publicKey: {
 			challenge,
 			userVerification: "preferred",
 		},
-	});
+	})) as PublicKeyCredential;
+	const assertionResponse =
+		assertion.response as AuthenticatorAssertionResponse;
 
-	const signature = btoa(assertion.response.signature);
-	const authenticatorData = _arrayBufferToBase64(
-		assertion.response.authenticatorData,
+	const signature = _arrayBufferToBase64Url(assertionResponse.signature);
+	const authenticatorData = _arrayBufferToBase64Url(
+		assertionResponse.authenticatorData,
 	);
-	const clientDataJson = _arrayBufferToBase64(
-		assertion.response.clientDataJSON,
+	const clientDataJson = _arrayBufferToBase64Url(
+		assertionResponse.clientDataJSON,
 	);
 
 	await navigateTo(
