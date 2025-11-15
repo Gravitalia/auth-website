@@ -75,6 +75,7 @@ const authorize = async () => {
 		publicKey: {
 			challenge,
 			userVerification: "preferred",
+			rpId: "Gravitalia",
 		},
 	})) as PublicKeyCredential;
 	const assertionResponse =
