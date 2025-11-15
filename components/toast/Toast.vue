@@ -13,7 +13,7 @@ defineProps({
 		class="fixed top-0 flex max-h-screen w-full p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-md"
 	>
 		<div
-			class="group relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md p-4 pr-6 shadow transition-all border bg-background text-foreground"
+			class="bg-white dark:bg-black group relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md p-4 pr-6 shadow transition-all border text-foreground"
 		>
 			<div class="grid gap-1">
 				<div class="text-sm font-semibold">

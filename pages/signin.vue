@@ -112,7 +112,7 @@ const login = (totpCode?: string) => {
 			try {
 				if (err.json.errors?.find((e) => e.field === "totpCode")) {
 					if (step.value === 1) step.value++;
-				} else if (err.json.detail?.includes("no rows")) {
+				} else if (err.json.detail?.includes("no rows") || err.json.detail?.includes("email")) {
 					error("email", "error.form.email");
 				} else if (err.json.errors?.find((e) => e.field === "password")) {
 					error("password", "error.form.password");
