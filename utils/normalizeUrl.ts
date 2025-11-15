@@ -1,6 +1,7 @@
 export default function (url: string): {
 	protocol: "https:" | "http:";
 	host: string;
+	path: string;
 } {
 	if (!url.startsWith("http://") && !url.startsWith("https://")) {
 		// Add a default protocol.
@@ -14,11 +15,16 @@ export default function (url: string): {
 	if (parsedUrl.protocol === "http:" && parsedUrl.hostname !== "localhost") {
 		// Force HTTPS if not in local.
 		// If HTTPS is not supported, it'll throw an error.
-		return { protocol: "https:", host: parsedUrl.host };
+		return {
+			protocol: "https:",
+			host: parsedUrl.host,
+			path: parsedUrl.pathname,
+		};
 	} else {
 		return {
 			protocol: parsedUrl.protocol as "https:" | "http:",
 			host: parsedUrl.host,
+			path: parsedUrl.pathname,
 		};
 	}
 }

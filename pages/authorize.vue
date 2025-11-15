@@ -22,7 +22,7 @@ const { redirect, challenge: queryChallenge } = useRoute().query;
 const step = ref(0);
 
 if (!redirect) errorState.redirect = true;
-const { protocol, host } = normalizeUrl(
+const { protocol, host, path } = normalizeUrl(
 	(redirect as string) || staticDefaultServer,
 );
 
@@ -41,15 +41,9 @@ if (!errorState.redirect && !errorState.challenge)
 	step.value = !keyId.value || keyId.value === "" ? 1 : 2;
 
 const _arrayBufferToBase64Url = (buffer: ArrayBuffer): string => {
-	const bytes = Buffer.from(buffer);
-
-	let binary = "";
-	for (let i = 0; i < bytes.byteLength; i++) {
-		binary += String.fromCharCode(bytes[i]);
-	}
-
+	const bytes = new Uint8Array(buffer);
+	const binary = String.fromCharCode.apply(null, Array.from(bytes));
 	const base64 = window.btoa(binary);
-
 	return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 };
 
@@ -94,7 +88,7 @@ const authorize = async () => {
 	);
 
 	await navigateTo(
-		`${protocol}//${host}?signature=${signature}&id=${userId}&key=${keyId.value}&authenticatorData=${authenticatorData}&clientDataJson=${clientDataJson}`,
+		`${protocol}//${host}${path}?signature=${signature}&id=${userId}&key=${keyId.value}&authenticatorData=${authenticatorData}&clientDataJson=${clientDataJson}`,
 		{ external: true },
 	);
 };
