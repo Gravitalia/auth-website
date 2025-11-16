@@ -1,3 +1,8 @@
+import { isProduction } from "std-env";
+import { NEVER_EXPIRE_DURATION } from "~/stores/users";
+
+const KEY = "key";
+
 const _arrayBufferToBase64 = (buffer: any) => {
 	const bytes = new Uint8Array(buffer);
 	let binary = "";
@@ -34,10 +39,11 @@ export default function useKeys() {
 			],
 		} as PublicKeyCredentialCreationOptions;
 
-		const credential = await navigator.credentials.create({
+		const credential = (await navigator.credentials.create({
 			publicKey: publicKeyOptions,
-		}) as PublicKeyCredential;
-		const credentialResponse = credential.response as AuthenticatorAttestationResponse;
+		})) as PublicKeyCredential;
+		const credentialResponse =
+			credential.response as AuthenticatorAttestationResponse;
 		const pk = credentialResponse.getPublicKey();
 
 		const base64 = _arrayBufferToBase64(pk);
@@ -54,7 +60,14 @@ export default function useKeys() {
 			publicKeyPem: pem,
 			createdAt: "now",
 		});
-		useCookie("key", { sameSite: "strict", expires: undefined }).value = id;
+
+		useCookie(KEY, {
+			maxAge: NEVER_EXPIRE_DURATION,
+			sameSite: "strict",
+			secure: isProduction,
+			priority: "high",
+		}).value = id;
+
 		return { pem, id };
 	};
 
