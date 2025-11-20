@@ -174,14 +174,12 @@ useEnterKey(create);
 		:server="trustServer.server"
 	/>
 
+	<!-- Custom hoster background. -->
+	<AuthentificationBackground v-if="data?.background" :href="data.background" />
+
 	<form
 		@submit.prevent="function () {}"
 		class="flex flex-col items-center h-screen gap gap-y-6"
-		:style="{
-			backgroundImage: 'url(' + data?.background + ')',
-			backgroundRepeat: 'no-repeat',
-			backgroundSize: 'cover',
-		}"
 	>
 		<!-- Centered card with the form. -->
 		<Card class="w-80 lg:w-96" :title="$t('authentification.create')">
