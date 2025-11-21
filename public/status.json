@@ -1,6 +1,7 @@
 {
 	"name": "Gravitalia",
 	"url": "https://auth.gravitalia.com/",
+	"background": "/background.svg",
 	"favicon": "https://account.gravitalia.com/favicon.webp",
 	"terms_of_service": "https://account.gravitalia.com/terms.pdf",
 	"privacy_policy": "https://account.gravitalia.com/privacy.pdf",
