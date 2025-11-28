@@ -168,6 +168,7 @@ export const useUsers = defineStore("users", {
 			password?: string;
 			totpSecret?: string;
 			totpCode?: string;
+			newPassword?: string;
 		}) {
 			const route = `${this.protocol}//${this.host}/users/@me`;
 			const payload = {
@@ -177,6 +178,7 @@ export const useUsers = defineStore("users", {
 				password: opt.password,
 				totpSecret: opt.totpSecret,
 				totpCode: opt.totpCode,
+				newPassword: opt.newPassword,
 			};
 			return this._req(route, payload, {
 				method: "patch",

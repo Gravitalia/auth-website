@@ -34,7 +34,7 @@ const finish = () => {
 	}
 
 	user
-		.updateMe({ password: oldPassword.value })
+		.updateMe({ password: oldPassword.value, newPassword: newPassword.value })
 		.then((_) => {
 			toast({
 				title: t("profile.toast.title"),
@@ -44,9 +44,9 @@ const finish = () => {
 		})
 		.catch((err: ServerErrorClass) => {
 			if (err.json.errors?.find((e) => e.field === "password")) {
-				errorState.newPassword = true;
-			} else {
 				errorState.oldPassword = true;
+			} else {
+				errorState.newPassword = true;
 			}
 		});
 };
@@ -59,24 +59,49 @@ const finish = () => {
 		:title="$t('profile.password.title')"
 		:visible
 	>
-		<Input
-			autofocus
-			required
-			v-model="newPassword"
-			type="password"
-			:placeholder="$t('profile.password.new')"
-			:error="errorState.newPassword"
-			class="w-full"
-		/>
-
-		<Input
-			autofocus
-			required
-			v-model="oldPassword"
-			type="password"
-			:placeholder="$t('profile.password.old')"
-			:error="errorState.oldPassword"
-			class="w-full"
-		/>
+		<form @submit.prevent="finish()">
+			<div>
+				<label
+					:class="[
+						'text-sm',
+						errorState.newPassword
+							? 'text-red-500 dark:text-red-600'
+							: 'text-zinc-600 dark:text-zinc-300',
+					]"
+				>
+					{{ $t("profile.password.new") }}
+				</label>
+				<Input
+					autofocus
+					required
+					v-model="newPassword"
+					type="password"
+					:placeholder="$t('profile.password.new')"
+					:error="errorState.newPassword"
+					class="w-full"
+				/>
+			</div>
+			<div class="mt-4">
+				<label
+					:class="[
+						'text-sm',
+						errorState.oldPassword
+							? 'text-red-500 dark:text-red-600'
+							: 'text-zinc-600 dark:text-zinc-300',
+					]"
+				>
+					{{ $t("profile.password.old") }}
+				</label>
+				<Input
+					autofocus
+					required
+					v-model="oldPassword"
+					type="password"
+					:placeholder="$t('profile.password.old')"
+					:error="errorState.oldPassword"
+					class="w-full"
+				/>
+			</div>
+		</form>
 	</Modal>
 </template>
