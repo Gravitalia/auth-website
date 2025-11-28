@@ -22,8 +22,7 @@ const { addServer, defaultServer } = useTrustedServer();
 const { data, updateInfo } = await useAppInfo(
 	`${staticDefaultServer}/status.json`,
 );
-const { t } = useI18n();
-
+const { t, locale } = useI18n();
 const checkAndUpdateServer = async () => {
 	const server = useRoute().query?.server?.toString();
 	const defaultHoister = defaultServer(server);
@@ -127,6 +126,7 @@ const create = async () => {
 			formData.id,
 			formData.email,
 			formData.password,
+			locale.value,
 			formData.invite_code,
 		)
 		.then(async (_: ConnectResponse) => {

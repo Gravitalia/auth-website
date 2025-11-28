@@ -108,10 +108,11 @@ export const useUsers = defineStore("users", {
 			id: string,
 			email: string,
 			password: string,
+			locale: string,
 			invite?: string,
 		): Promise<ConnectResponse> {
 			const route = `${this.protocol}//${this.host}/create`;
-			const payload = { id, email, password, invite, locale: useI18n().locale };
+			const payload = { id, email, password, locale, invite };
 			return await this._req(route, payload);
 		},
 
