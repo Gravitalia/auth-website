@@ -110,6 +110,12 @@ export default defineNuxtConfig({
 				Expires: "0",
 			},
 		},
+		"/terms": {
+			redirect: "/terms.pdf",
+		},
+		"/privacy": {
+			redirect: "/privacy.pdf",
+		},
 	},
 
 	sri: true,
