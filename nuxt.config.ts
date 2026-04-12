@@ -1,7 +1,7 @@
 import { isDevelopment } from "std-env";
 
 export default defineNuxtConfig({
-	compatibilityDate: "2025-07-15",
+	compatibilityDate: "2026-04-11",
 
 	devtools: {
 		enabled: true,

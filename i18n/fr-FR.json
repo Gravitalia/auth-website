@@ -37,7 +37,7 @@
 
 		"login_account": "Déjà un compte ? Connectez-vous !",
 		"create": "Créer mon compte",
-		"invite_only": "Ce serveur requiert une invitation. Le code d'invitation est vérifié lors de l'inscription.",
+		"invite_only": "Ce serveur requiert une invitation.",
 		"invite_code": "Code d'invitation",
 		"id": "Nom d'utilisateur",
 		"tos": "Conditions générales d'utilisation",

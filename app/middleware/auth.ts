@@ -2,12 +2,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
 	const redirectPath = `/signin?redirect=${to.fullPath}`;
 	const user = useUsers();
 
-	// If token is undefined but refresh token exists,
-	// it'll automatically reset the token and connect user.
 	await user.startTokenRotation();
 
 	if (!user._token) {
-		// If user is not logged, redirect it to login page.
 		return navigateTo(redirectPath, { redirectCode: 307 });
 	} else {
 		try {

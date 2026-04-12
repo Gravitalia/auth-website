@@ -106,27 +106,51 @@ const authorize = async () => {
 	>
 		<div class="space-y-6">
 			<Card class="w-80 lg:w-96" :title="$t('authorize.title', { host })">
-				<div v-show="errorState.redirect">
-					<p class="flex text-sm text-zinc-600 dark:text-zinc-300">
-						{{ $t("authorize.error.redirect") }}
-					</p>
+				<div v-show="errorState.redirect" class="space-y-3">
+					<div
+						class="p-4 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-900"
+					>
+						<p class="text-sm text-red-700 dark:text-red-300">
+							{{ $t("authorize.error.redirect") }}
+						</p>
+					</div>
 				</div>
-				<div v-show="errorState.challenge">
-					<p class="flex text-sm text-zinc-600 dark:text-zinc-300">
-						{{ $t("authorize.error.challenge") }}
-					</p>
+
+				<div v-show="errorState.challenge" class="space-y-3">
+					<div
+						class="p-4 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-900"
+					>
+						<p class="text-sm text-red-700 dark:text-red-300">
+							{{ $t("authorize.error.challenge") }}
+						</p>
+					</div>
 				</div>
+
 				<div v-show="step === 1">
-					<p class="text-sm text-zinc-600 dark:text-zinc-300">
-						{{ $t("authorize.create_key") }}
-					</p>
+					<div
+						class="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-900"
+					>
+						<p class="text-xs text-blue-700 dark:text-blue-300">
+							{{ $t("authorize.create_key") }}
+						</p>
+					</div>
 				</div>
-				<div v-show="step === 2">
-					<p class="text-sm">{{ $t("authorize.access.title", { host }) }}</p>
-					<p class="flex text-sm text-zinc-600 dark:text-zinc-300">
-						<CheckCircleIcon class="size-5 mr-1.5" />
-						{{ $t("authorize.access.username") }}
-					</p>
+				<div v-show="step === 2" class="space-y-4">
+					<div>
+						<p class="text-sm font-semibold text-zinc-900 dark:text-white mb-3">
+							{{ $t("authorize.access.title", { host }) }}
+						</p>
+						<div
+							class="flex items-center gap-2 p-3 bg-green-50 dark:bg-green-950/30 rounded-lg border border-green-200 dark:border-green-900"
+						>
+							<CheckCircleIcon
+								class="size-5 text-green-600 dark:text-green-400 flex-shrink-0"
+							/>
+							<span class="text-sm text-green-700 dark:text-green-300">
+								{{ $t("authorize.access.username") }}
+							</span>
+						</div>
+					</div>
 				</div>
 			</Card>
 

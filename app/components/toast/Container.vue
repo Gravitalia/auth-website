@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toasts } from "~/composables/useToast";
+import { toasts } from "@/composables/useToast";
 </script>
 
 <template>

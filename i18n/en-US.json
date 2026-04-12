@@ -37,7 +37,7 @@
 
 		"login_account": "Already an account? Sign in!",
 		"create": "Create my account",
-		"invite_only": "This server requires an invitation. The invitation code is checked during registration.",
+		"invite_only": "This server requires an invitation.",
 		"invite_code": "Invitation code",
 		"id": "Username",
 		"tos": "Terms of Service",

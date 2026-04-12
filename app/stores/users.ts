@@ -1,6 +1,6 @@
 import { isProduction } from "std-env";
-import type { ServerError, User, ConnectResponse } from "~/types";
-import { ServerErrorClass } from "~/types";
+import type { ServerError, User, ConnectResponse } from "@/types";
+import { ServerErrorClass } from "@/types";
 
 export const NEVER_EXPIRE_DURATION = 60 * 60 * 24 * 30 * 12 * 10; // 10 years.
 const REFRESH_TOKEN_DURATION = 60 * 60 * 24 * 15; // 15 days.

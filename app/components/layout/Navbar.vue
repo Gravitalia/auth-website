@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ArrowLeftStartOnRectangleIcon } from "@heroicons/vue/24/outline";
 
+interface NavLink {
+	name: string;
+	path: string;
+}
+
 const path = computed(() => useRoute().path);
-const links = [
+const links = ref<NavLink[]>([
 	{
 		name: "navbar.profile",
 		path: "/",
@@ -15,7 +20,7 @@ const links = [
 		name: "navbar.account",
 		path: "/account",
 	},
-];
+]);
 
 const user = useUsers();
 const logout = async () => {
@@ -41,7 +46,7 @@ const { data } = await useAppInfo(`${user.host}/status.json`);
 					:key="link.path"
 					:to="link.path"
 					:aria-label="$t(link.name)"
-					:aria-current="link.path === path ? 'page' : null"
+					:aria-current="link.path === path ? 'page' : undefined"
 					:class="[
 						'relative transition group',
 						link.path === path
